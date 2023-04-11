@@ -59,11 +59,12 @@ const Navbar = () => {
       <div className="flex flex-row justify-center">
         <div className="flex flex-row items-center">
           <Image
-            src="/images/triangle.png"
+            src="/images/logo.png"
             alt="logo"
             className="mx-4 inline h-12 w-12"
             height={400}
             width={400}
+            priority
           />
           <h1 className="relative hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white sm:inline lg:text-4xl 2xl:text-[3rem]">
             <span className="duration-150 dark:text-red-600 ">

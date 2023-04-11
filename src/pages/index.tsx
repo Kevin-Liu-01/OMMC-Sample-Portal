@@ -34,7 +34,14 @@ const Home: NextPage = () => {
       <Navbar />
       {!session?.user ? (
         <div className="relative z-10 flex  h-[calc(100vh-3.7rem)] w-full flex-col items-center justify-center text-3xl font-extrabold ">
-          <div className="z-5 absolute h-full w-full bg-[url('https://images.g2crowd.com/uploads/attachment/file/1224339/App-screen-3-G2.png')] bg-cover opacity-20 blur-[3px]"></div>
+          <Image
+            alt="Background"
+            src="/images/background.webp"
+            className="z-5 absolute h-full w-full opacity-20 blur-[2px]"
+            priority
+            height={980}
+            width={980}
+          />
           <div className="z-2 pattern-cross absolute h-[100vh] w-[100vw] duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-500 dark:pattern-bg-gray-900"></div>
 
           <button
