@@ -22,6 +22,7 @@
     "openai": "^3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-mde": "^11.5.0",
     "react-pdf": "^6.2.2",
     "react-slider": "^2.0.4",
     "react-typing-effect": "^2.0.5",

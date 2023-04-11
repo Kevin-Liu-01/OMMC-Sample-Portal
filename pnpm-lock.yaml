@@ -30,6 +30,7 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.2.1
   react: 18.2.0
   react-dom: 18.2.0
+  react-mde: ^11.5.0
   react-pdf: ^6.2.2
   react-slider: ^2.0.4
   react-typing-effect: ^2.0.5
@@ -54,6 +55,7 @@ dependencies:
   openai: 3.2.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-mde: 11.5.0_biqbaboplfbrettd7655fr4n2y
   react-pdf: 6.2.2_biqbaboplfbrettd7655fr4n2y
   react-slider: 2.0.4_react@18.2.0
   react-typing-effect: 2.0.5
@@ -2778,6 +2780,16 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  /react-mde/11.5.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-CH/VK6d+tpVjJ8rTXfh1dDt6GWedTgCU0668p8toqhAc3vy0Lu872O2RKYDSpkUrlbHI08fjUPTl++nExp6gag==}
+    peerDependencies:
+      react: ^17.0.0
+      react-dom: ^17.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-pdf/6.2.2_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-huNWhzzTAb3t1mWA6WOR9yQRCbcZ6uXCGC46cEAgEhGqvXTB6RcHm+1DS2r9OdPNUZ9SZTuR6jZ1BNOJIiEing==}

@@ -66,7 +66,7 @@ const Navbar = () => {
             width={400}
             priority
           />
-          <h1 className="relative hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white sm:inline lg:text-4xl 2xl:text-[3rem]">
+          <h1 className="relative hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white sm:inline lg:text-4xl 2xl:text-[2.5rem]">
             <span className="duration-150 dark:text-red-600 ">
               OMMC Submission Portal
             </span>
@@ -94,7 +94,7 @@ const Navbar = () => {
           </div>
 
           <button
-            className=" h-full border-l border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className=" h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={session ? () => void signOut() : () => void signIn()}
           >
             {session ? (
