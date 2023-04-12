@@ -28,10 +28,10 @@ const Test: NextPage = () => {
 
   const [started, setStarted] = useState(false);
   const [teamName, setTeamName] = useState(
-    window.localStorage.getItem("TEAM_NAME") || ""
+    localStorage.getItem("TEAM_NAME") || ""
   );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const savedTeamMembers = window.localStorage.getItem("TEAM_MEMBERS");
+  const savedTeamMembers = localStorage.getItem("TEAM_MEMBERS");
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const parsedTeamMembers = savedTeamMembers
     ? JSON.parse(savedTeamMembers)
@@ -42,9 +42,9 @@ const Test: NextPage = () => {
   const [newMember, setNewMember] = useState("");
 
   useEffect(() => {
-    window.localStorage.setItem("TEAM_MEMBERS", JSON.stringify(teamMembers));
+    localStorage.setItem("TEAM_MEMBERS", JSON.stringify(teamMembers));
 
-    window.localStorage.setItem("TEAM_NAME", teamName ? teamName : "");
+    localStorage.setItem("TEAM_NAME", teamName ? teamName : "");
   }, [teamName, teamMembers]);
 
   const addMember = () => {
