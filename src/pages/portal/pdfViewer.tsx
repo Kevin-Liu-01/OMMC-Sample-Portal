@@ -37,7 +37,7 @@ const PDFViewer: NextPage = () => {
   };
   return (
     <section className="z-10 col-span-5  flex h-[calc(100vh-3.7rem)] justify-center overflow-x-hidden overflow-y-scroll border-r-[1.5px] border-gray-600 shadow-inner">
-      <nav className="absolute bottom-4 z-20 mx-auto flex flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70">
+      <nav className="absolute bottom-4 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70">
         <button
           className={`${
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

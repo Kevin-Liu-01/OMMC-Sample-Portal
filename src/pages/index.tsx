@@ -47,7 +47,7 @@ const Home: NextPage = () => {
           </h5>
           <button
             onClick={() => void signIn()}
-            className="z-10 mt-4 select-none rounded-2xl p-4 duration-150 hover:scale-105 hover:underline"
+            className="z-10 mt-8 select-none rounded-2xl p-4 duration-150 hover:scale-[1.02] hover:underline"
           >
             Sign in to submit
           </button>

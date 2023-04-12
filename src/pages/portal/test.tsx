@@ -27,9 +27,25 @@ const Test: NextPage = () => {
   const { data: session } = useSession();
 
   const [started, setStarted] = useState(false);
-  const [teamName, setTeamName] = useState("");
-  const [teamMembers, setTeamMembers] = useState<string[]>([]);
+  const [teamName, setTeamName] = useState(
+    window.localStorage.getItem("TEAM_NAME") || ""
+  );
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const savedTeamMembers = window.localStorage.getItem("TEAM_MEMBERS");
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const parsedTeamMembers = savedTeamMembers
+    ? JSON.parse(savedTeamMembers)
+    : [];
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const [teamMembers, setTeamMembers] = useState<string[]>(parsedTeamMembers);
   const [newMember, setNewMember] = useState("");
+
+  useEffect(() => {
+    window.localStorage.setItem("TEAM_MEMBERS", JSON.stringify(teamMembers));
+
+    window.localStorage.setItem("TEAM_NAME", teamName ? teamName : "");
+  }, [teamName, teamMembers]);
 
   const addMember = () => {
     if (newMember.trim() !== "") {
@@ -51,10 +67,10 @@ const Test: NextPage = () => {
   };
 
   return (
-    <section className="z-10 col-span-7 overflow-y-scroll bg-gray-200 p-8 dark:bg-gray-900/95">
+    <section className="z-10 col-span-7 h-[calc(100vh-3.7rem)] overflow-y-scroll bg-gray-200 p-8 dark:bg-gray-900/95">
       {started ? (
         <div className="flex flex-col">
-          <div className="mb-6 flex items-center rounded-xl bg-white p-6 py-5 shadow-lg dark:bg-gray-800">
+          <div className="mb-6 flex items-center rounded-xl bg-gray-50 p-6 py-5 shadow-lg dark:bg-gray-800">
             <span className="text-lg">
               Signed in as {session ? session?.user?.name : "Guest"}
             </span>
@@ -77,14 +93,14 @@ const Test: NextPage = () => {
         </div>
       ) : (
         <div className="flex h-full flex-col ">
-          <h1 className="mb-4 text-5xl font-bold">
+          <h1 className="mb-6 text-xl font-bold md:text-2xl lg:mb-8 lg:text-3xl xl:text-4xl 2xl:text-[2.8rem]">
             Welcome to the{" "}
-            <span className="rounded-2xl bg-red-600 px-3 py-0.5 text-white dark:bg-red-700">
+            <span className="rounded-xl bg-red-600 px-2 py-0.5 text-white dark:bg-red-700 xl:rounded-2xl xl:px-3">
               OMMC Year 3
             </span>{" "}
             Test!
           </h1>
-          <div className="mb-6 max-w-4xl rounded-xl">
+          <div className="mb-6 max-w-4xl rounded-xl text-xs lg:text-sm xl:text-base ">
             <h2 className="mb-4 text-xl font-bold">
               A Few Things to Keep in Mind:
             </h2>
@@ -110,11 +126,11 @@ const Test: NextPage = () => {
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
-                  className="mb-2 block text-lg font-semibold text-gray-700 dark:text-white"
+                  className="mb-2 block font-semibold text-gray-700 dark:text-white lg:text-lg"
                   htmlFor="teamName"
                 >
                   Team Name
-                  <p className="text-sm font-normal italic dark:text-gray-500">
+                  <p className="text-xs font-normal italic dark:text-gray-500 lg:text-sm">
                     Choose a creative, appropriate name for your team.
                   </p>
                 </label>
@@ -132,11 +148,11 @@ const Test: NextPage = () => {
               </div>
               <div className="mb-4">
                 <label
-                  className="mb-2 block text-lg font-semibold text-gray-700 dark:text-white"
+                  className="mb-2 block  font-semibold text-gray-700 dark:text-white lg:text-lg"
                   htmlFor="teamMembers"
                 >
                   Team Members
-                  <p className="text-sm font-normal italic dark:text-gray-500">
+                  <p className="text-xs font-normal italic dark:text-gray-500 lg:text-sm">
                     {
                       'If you wish to remain anonymous, put "anonymous" in the boxes.'
                     }
@@ -169,7 +185,7 @@ const Test: NextPage = () => {
                         value={newMember}
                         onChange={(event) => setNewMember(event.target.value)}
                         maxLength={20}
-                        required
+                        required={teamMembers.length < 1}
                       />
                       <button
                         type="button"
