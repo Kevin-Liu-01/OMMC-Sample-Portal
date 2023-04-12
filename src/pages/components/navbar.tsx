@@ -5,13 +5,9 @@ import { useState, useEffect } from "react";
 import {
   SunIcon,
   MoonIcon,
-  DotsHorizontalIcon,
-  PlusIcon,
-  ViewGridIcon,
   LoginIcon,
   LogoutIcon,
   UserCircleIcon,
-  MenuIcon,
 } from "@heroicons/react/solid";
 
 const Navbar = () => {
@@ -32,7 +28,7 @@ const Navbar = () => {
     if (currentTheme === "dark") {
       return (
         <button
-          className="flex h-full w-full items-center justify-center text-gray-300 hover:text-purple-500"
+          className="flex h-full w-full items-center justify-center text-gray-300 hover:text-red-600"
           role="button"
           onClick={() => setTheme("light")}
         >
@@ -43,7 +39,7 @@ const Navbar = () => {
     } else {
       return (
         <button
-          className="flex h-full w-full items-center justify-center  text-black hover:text-orange-400"
+          className="flex h-full w-full items-center justify-center  text-black hover:text-orange-600"
           role="button"
           onClick={() => setTheme("dark")}
         >
@@ -52,6 +48,16 @@ const Navbar = () => {
         </button>
       );
     }
+  };
+
+  const signOutFunc = () => {
+    void signOut();
+    localStorage.removeItem("TEAM_MEMBER");
+    localStorage.removeItem("TEAM_NAME");
+    localStorage.removeItem("STARTED");
+    localStorage.removeItem("Q1");
+    localStorage.removeItem("Q2");
+    localStorage.removeItem("Q3");
   };
 
   return (
@@ -73,7 +79,7 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="ml-auto flex ">
-          <div className="hidden h-full items-center py-2 px-2 duration-75 dark:text-white lg:flex">
+          <div className="hidden h-full items-center py-2 px-2 duration-75 dark:text-white sm:flex">
             <span className="select-none text-xl">
               {session?.user?.name || "Sign in to submit"}
             </span>
@@ -95,7 +101,7 @@ const Navbar = () => {
 
           <button
             className=" h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
-            onClick={session ? () => void signOut() : () => void signIn()}
+            onClick={session ? () => void signOutFunc() : () => void signIn()}
           >
             {session ? (
               <LogoutIcon className="h-8 w-8" />

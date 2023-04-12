@@ -8,7 +8,7 @@
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
-    width: 5px;
+    width: 15px;
     height: 15px;
   }
 
@@ -16,19 +16,19 @@
     /* border-top-right-radius: 0.5rem;
     border-bottom-right-radius: 0.5rem; */
 
-    @apply bg-transparent;
+    @apply bg-gray-400 dark:bg-gray-800;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
     @apply bg-gray-300 dark:bg-gray-700;
 
-    /* border-radius: 0.5rem;
-    border: 0px solid;
-    @apply border-2 border-gray-50 dark:border-gray-800; */
+    border-radius: 0.5rem;
+    border: 2.5px solid;
+    @apply border-[3px] border-gray-400 dark:border-gray-800;
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-[#c3c5c5] dark:bg-gray-600;
+    @apply bg-gray-200 dark:bg-gray-600;
   }
 
   .scrollbar::-webkit-scrollbar-corner {

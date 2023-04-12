@@ -1,18 +1,9 @@
 import { type NextPage } from "next";
 import Image from "next/image";
-import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
-import {
-  useState,
-  useEffect,
-  type SetStateAction,
-  type FormEvent,
-} from "react";
+import { signIn, useSession } from "next-auth/react";
 // import { api } from "~/utils/api";
-import { VariableIcon } from "@heroicons/react/solid";
-import { env } from "../env.mjs";
 import Navbar from "./components/navbar";
-import TestPortal from "./portal/portal";
+import TestPortal from "../portal/portal";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
@@ -39,9 +30,9 @@ const Home: NextPage = () => {
             width={980}
           />
           <div className="z-2 pattern-dots absolute h-[100vh] w-[100vw] duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-500 dark:pattern-bg-gray-900"></div>
-          <h5 className="z-10 text-7xl font-extrabold">
+          <h5 className="xs:text-3xl z-10 text-2xl font-extrabold sm:text-4xl md:text-5xl lg:mb-8 lg:text-6xl xl:text-7xl">
             Welcome to{" "}
-            <span className="rounded-3xl bg-red-600 px-3 py-1 text-white dark:bg-red-700">
+            <span className=" rounded-3xl bg-red-600 px-3 py-1 text-white dark:bg-red-700">
               OMMC Year 3
             </span>
           </h5>

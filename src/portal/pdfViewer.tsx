@@ -1,13 +1,12 @@
-import { type NextPage } from "next";
-import { useState, type SetStateAction, ChangeEvent } from "react";
+import { useState, type SetStateAction, type ChangeEvent } from "react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
-import { env } from "../../env.mjs";
+// import { env } from "../../env.mjs";
 import { Document, Page, pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 
-const PDFViewer: NextPage = () => {
+const PDFViewer = () => {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [buttonEffect, setButtonEffect] = useState(false);
@@ -36,13 +35,13 @@ const PDFViewer: NextPage = () => {
     pageEffect();
   };
   return (
-    <section className="z-10 col-span-5  flex h-[calc(100vh-3.7rem)] justify-center overflow-x-hidden overflow-y-scroll border-r-[1.5px] border-gray-600 shadow-inner">
-      <nav className="absolute bottom-4 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70">
+    <section className="scrollbar z-10 col-span-7 flex md:h-[calc(100vh-3.7rem)] justify-center overflow-x-hidden overflow-y-scroll md:border-r-[1.5px] border-gray-600 shadow-inner md:col-span-5">
+      <nav className="absolute top-6 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70 md:top-auto md:bottom-4">
         <button
           className={`${
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             buttonEffect && "animate-wiggle"
-          } flex items-center rounded-lg bg-gray-100 px-2 py-1 duration-75 hover:scale-105 dark:bg-gray-800`}
+          } flex items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800`}
           onClick={() => {
             handleButtonClick(setButtonEffect, goToPrevPage);
           }}
@@ -54,7 +53,7 @@ const PDFViewer: NextPage = () => {
           className={`${
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             buttonEffect2 && "animate-wiggle"
-          } flex items-center rounded-lg bg-gray-100 px-2 py-1 duration-75 hover:scale-105 dark:bg-gray-800`}
+          } flex items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800`}
           onClick={() => {
             handleButtonClick(setButtonEffect2, goToNextPage);
           }}

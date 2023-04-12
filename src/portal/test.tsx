@@ -1,40 +1,93 @@
-import { NextPage } from "next";
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { useState, useEffect } from "react";
 import {
   ArrowRightIcon,
   PlusIcon,
   MinusIcon,
   ArrowLeftIcon,
-  DatabaseIcon,
 } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import Question from "./question";
-import { env } from "../../env.mjs";
+import Modal from "./modal";
+import Confetti from "react-confetti";
 
-const questions = [
-  {
-    id: 1,
-  },
-  {
-    id: 2,
-  },
-  {
-    id: 3,
-  },
-];
+// import { env } from "../../env.mjs";
 
-const Test: NextPage = () => {
+const Test = () => {
   const { data: session } = useSession();
-
-  const [started, setStarted] = useState(false);
-  const [teamName, setTeamName] = useLocalStorage("TEAM_NAME","");
-
+  const [started, setStarted] = useLocalStorage("STARTED", false);
+  const [teamName, setTeamName] = useLocalStorage("TEAM_NAME", "");
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const [teamMembers, setTeamMembers] = useLocalStorage<string[]>(
     "TEAM_MEMBER",
     []
   );
   const [newMember, setNewMember] = useState("");
+  const [q1, setQ1] = useLocalStorage("Q1", "");
+  const [q2, setQ2] = useLocalStorage("Q2", "");
+  const [q3, setQ3] = useLocalStorage("Q3", "");
+  const [showModal, setShowModal] = useState(false);
+  const [confetti, showConfetti] = useState(false);
+  const [current, setCurrent] = useState([]);
+
+  useEffect(() => {
+    const fetchSubmissions = async () => {
+      const res = await fetch("/api/submissions");
+      const data = await res.json();
+      setCurrent(data);
+    };
+    void fetchSubmissions();
+  }, []);
+
+  useEffect(() => {
+    if (current) {
+      Object.entries(current).forEach(([user, submissions]) => {
+        submissions.forEach((submission) => {
+          const keys = Object.keys(submission);
+
+          keys.some((key) => {
+            const userSubmission = submission[key];
+            if (userSubmission.email === session?.user?.email) {
+              console.log(key);
+              setTeamMembers(JSON.parse(key));
+              setStarted(userSubmission.started === "true");
+              setTeamName(
+                userSubmission.teamName.replace('"', "").replace('"', "")
+              );
+              setQ1(userSubmission.q1.replace('"', "").replace('"', ""));
+              setQ2(userSubmission.q2.replace('"', "").replace('"', ""));
+              setQ3(userSubmission.q3.replace('"', "").replace('"', ""));
+            }
+          });
+        });
+      });
+    }
+  }, [current]);
+
+  const questions = [
+    {
+      id: 1,
+      state: q1,
+      setState: setQ1,
+    },
+    {
+      id: 2,
+      state: q2,
+      setState: setQ2,
+    },
+    {
+      id: 3,
+      state: q3,
+      setState: setQ3,
+    },
+  ];
 
   const addMember = () => {
     if (newMember.trim() !== "") {
@@ -55,36 +108,74 @@ const Test: NextPage = () => {
     setStarted(true);
   };
 
+  const buttonSelector = () => {
+    if (confetti) {
+      return (
+        <button className="mr-1 mb-1 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-red-700 hover:shadow-lg focus:outline-none active:bg-emerald-600">
+          Submitted!
+        </button>
+      );
+    } else if (q1 && q2 && q3) {
+      return (
+        <button
+          onClick={() => setShowModal(true)}
+          className="mr-1 mb-1 rounded-xl bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-red-700 hover:shadow-lg focus:outline-none active:bg-red-600"
+        >
+          Submit
+        </button>
+      );
+    } else {
+      return (
+        <button className="mr-1 mb-1 rounded-xl bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white opacity-70 shadow outline-none transition-all">
+          Complete all questions
+        </button>
+      );
+    }
+  };
+
   return (
-    <section className="z-10 col-span-7 h-[calc(100vh-3.7rem)] overflow-y-scroll bg-gray-200 p-8 dark:bg-gray-900/95">
+    <section className="scrollbar z-10 col-span-7 h-[calc(100vh-3.58rem)] overflow-y-scroll bg-gray-200 p-8 dark:bg-gray-900/95">
+      <Confetti
+        numberOfPieces={confetti ? 150 : 0}
+        // width={}
+        // height={}
+      />
       {started ? (
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
+          <Modal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            teamName={teamName}
+            showConfetti={showConfetti}
+          />
+
           <div className="mb-6 flex items-center rounded-xl bg-gray-50 p-6 py-5 shadow-lg dark:bg-gray-800">
             <span className="text-lg">
               Signed in as {session ? session?.user?.name : "Guest"}
             </span>
-            <button className="ml-auto flex items-center rounded-lg bg-red-600 px-2 py-1 text-white duration-150 hover:bg-red-700">
-              <DatabaseIcon className="mr-1 h-5 w-5" /> Save
-            </button>
+
             <button
               onClick={() => setStarted(!started)}
-              className="ml-2 flex items-center rounded-lg bg-red-600 px-2 py-1 text-white duration-150 hover:bg-red-700"
+              className="ml-auto flex items-center rounded-lg bg-red-600 px-2 py-1 text-white duration-150 hover:bg-red-700"
             >
               <ArrowLeftIcon className="mr-1 h-5 w-5" /> Back
             </button>
           </div>
           {questions.map((question) => (
-            <Question key={question.id} id={question.id} />
+            <Question
+              key={question.id}
+              id={question.id}
+              state={question.state}
+              setState={question.setState}
+            />
           ))}
-          <button className="mt-auto rounded-lg bg-red-600 p-2 duration-150 hover:bg-red-700">
-            Submit
-          </button>
+          {buttonSelector()}
         </div>
       ) : (
         <div className="flex h-full flex-col ">
           <h1 className="mb-6 text-xl font-bold md:text-2xl lg:mb-8 lg:text-3xl xl:text-4xl 2xl:text-[2.8rem]">
             Welcome to the{" "}
-            <span className="rounded-xl bg-red-600 px-2 py-0.5 text-white dark:bg-red-700 xl:rounded-2xl xl:px-3">
+            <span className="rounded-xl bg-red-600 px-2 py-0.5 text-white xl:rounded-2xl xl:px-3">
               OMMC Year 3
             </span>{" "}
             Test!

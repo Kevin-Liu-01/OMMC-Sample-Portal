@@ -1,16 +1,16 @@
+import { FirestoreAdapter } from "@next-auth/firebase-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
+  type DefaultSession,
   getServerSession,
   type NextAuthOptions,
-  type DefaultSession,
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import {FireStoreAdapter} from "next-auth/firestore-adapter";
+import GoogleProvider from "next-auth/providers/google";
 
-// import {firestore} from "~/server/db"
-import { env } from "../env.mjs";
+import { env } from "~/env.mjs";
+import { firestore } from "~/server/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -40,72 +40,73 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    // session({ session, user }) {
-    //   if (session.user) {
-    //     session.user.name = user.name;
-    //     // session.user.role = user.role; <-- put other properties on the session here
-    //   }
-    //   return session;
-    // },
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        // session.user.role = user.role; <-- put other properties on the session here
+      }
+      return session;
+    },
   },
-  // adapter: FireStoreAdapter(firestore),
+  adapter: FirestoreAdapter(firestore),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
-    CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
-      credentials: {
-        name: {
-          label: "Username",
-          type: "text",
-          placeholder: "John Smith",
-        },
-        email: {
-          label: "Email",
-          type: "email",
-          placeholder: "jsmith@gmail.com",
-        },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials, req) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
-        // console.log(JSON.stringify(credentials))
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        const res = await fetch(
-          `https://ommc-test-portal.vercel.app/api/user`,
-          {
-            method: "POST",
-            body: JSON.stringify(credentials),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const user = await res.json();
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-          return user.userData;
-        }
-        // Return null if user data could not be retrieved
-        return null;
-      },
+
+    DiscordProvider({
+      clientId: env.DISCORD_CLIENT_ID,
+      clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
+    // CredentialsProvider({
+    //   // The name to display on the sign in form (e.g. 'Sign in with...')
+    //   name: "Credentials",
+    //   // The credentials is used to generate a suitable form on the sign in page.
+    //   // You can specify whatever fields you are expecting to be submitted.
+    //   // e.g. domain, username, password, 2FA token, etc.
+    //   // You can pass any HTML attribute to the <input> tag through the object.
+    //   credentials: {
+    //     name: {
+    //       label: "Username",
+    //       type: "text",
+    //       placeholder: "John Smith",
+    //     },
+    //     email: {
+    //       label: "Email",
+    //       type: "email",
+    //       placeholder: "jsmith@gmail.com",
+    //     },
+    //     password: { label: "Password", type: "password" },
+    //   },
+    //   async authorize(credentials, req) {
+    //     // You need to provide your own logic here that takes the credentials
+    //     // submitted and returns either a object representing a user or value
+    //     // that is false/null if the credentials are invalid.
+    //     // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+    //     // You can also use the `req` object to obtain additional parameters
+    //     // (i.e., the request IP address)
+    //     // console.log(JSON.stringify(credentials))
+    //     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    //     const res = await fetch(
+    //       `https://ommc-test-portal.vercel.app/api/user`,
+    //       {
+    //         method: "POST",
+    //         body: JSON.stringify(credentials),
+    //         headers: { "Content-Type": "application/json" },
+    //       }
+    //     );
+    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    //     const user = await res.json();
+    //     // If no error and we have user data, return it
+    //     if (res.ok && user) {
+    //       // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+    //       return user.userData;
+    //     }
+    //     // Return null if user data could not be retrieved
+    //     return null;
+    //   },
+    // }),
     /**
      * ...add more providers here.
      *
