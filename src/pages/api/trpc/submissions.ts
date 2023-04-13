@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getSession } from "next-auth/react";
-import firestore from "../../firebase";
+import firestore from "../../../firebase";
 
 type Data =
   | {

@@ -20,7 +20,7 @@ const Modal: React.FC<Props> = ({ showModal, setShowModal, teamName, showConfett
     setShowModal(false);
     showConfetti(true);
     //Submit to database
-    await fetch("/api/submit", {
+    await fetch("/api/trpc/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
