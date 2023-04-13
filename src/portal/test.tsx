@@ -39,7 +39,7 @@ const Test = () => {
 
   useEffect(() => {
     const fetchSubmissions = async () => {
-      const res = await fetch("/api/trpc/submissions");
+      const res = await fetch("/api/submissions");
       const data = await res.json();
       setCurrent(data);
     };

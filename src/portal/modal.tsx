@@ -4,10 +4,15 @@ interface Props {
   showModal: boolean;
   setShowModal: (arg0: boolean) => void;
   teamName: string;
-  showConfetti: (arg0: boolean) => void
+  showConfetti: (arg0: boolean) => void;
 }
 
-const Modal: React.FC<Props> = ({ showModal, setShowModal, teamName, showConfetti }) => {
+const Modal: React.FC<Props> = ({
+  showModal,
+  setShowModal,
+  teamName,
+  showConfetti,
+}) => {
   const { data: session } = useSession();
   //Get all stored states from local storage
   const teamMember = localStorage.getItem("TEAM_MEMBER");
@@ -20,7 +25,7 @@ const Modal: React.FC<Props> = ({ showModal, setShowModal, teamName, showConfett
     setShowModal(false);
     showConfetti(true);
     //Submit to database
-    await fetch("/api/trpc/submit", {
+    await fetch("/api/submit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +54,6 @@ const Modal: React.FC<Props> = ({ showModal, setShowModal, teamName, showConfett
 
   return (
     <>
-
       {showModal ? (
         <>
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">

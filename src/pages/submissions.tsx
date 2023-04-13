@@ -29,7 +29,7 @@ const SubmissionsTable = () => {
 
   useEffect(() => {
     const fetchSubmissions = async () => {
-      const res = await fetch("/api/trpc/submissions");
+      const res = await fetch("/api/submissions");
       const data = await res.json();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       setSubmissions(data);
