@@ -9,9 +9,17 @@
 import { useState, useEffect } from "react";
 import {
   ArrowRightIcon,
-  PlusIcon,
-  MinusIcon,
+  UserAddIcon,
+  UserRemoveIcon,
   ArrowLeftIcon,
+  UserCircleIcon,
+  UserGroupIcon,
+  UserIcon,
+  AtSymbolIcon,
+  InformationCircleIcon,
+  UploadIcon,
+  CheckIcon,
+  XIcon,
 } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import Question from "./question";
@@ -48,7 +56,7 @@ const Test = () => {
 
   useEffect(() => {
     if (current) {
-      Object.entries(current).forEach(([user, submissions]) => {
+      Object.entries(current).forEach(([, submissions]) => {
         submissions.forEach((submission) => {
           const keys = Object.keys(submission);
 
@@ -69,6 +77,7 @@ const Test = () => {
         });
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [current]);
 
   const questions = [
@@ -111,23 +120,23 @@ const Test = () => {
   const buttonSelector = () => {
     if (confetti) {
       return (
-        <button className="mr-1 mb-1 rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-red-700 hover:shadow-lg focus:outline-none active:bg-emerald-600">
-          Submitted!
+        <button className="mr-1 mb-1 flex flex-row items-center justify-center rounded-xl bg-emerald-600 px-6 py-3 text-sm font-bold uppercase text-white shadow-md outline-none transition-all duration-150 ease-linear hover:bg-red-700 hover:shadow-lg focus:outline-none active:bg-emerald-600">
+          <CheckIcon className="mr-2 h-5 w-5" /> Submitted!
         </button>
       );
     } else if (q1 && q2 && q3) {
       return (
         <button
           onClick={() => setShowModal(true)}
-          className="mr-1 mb-1 rounded-xl bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-red-700 hover:shadow-lg focus:outline-none active:bg-red-600"
+          className="mr-1 mb-1 flex flex-row items-center justify-center rounded-xl bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white shadow-md outline-none transition-all duration-150 ease-linear hover:bg-red-700 hover:shadow-lg focus:outline-none active:bg-red-600"
         >
-          Submit
+          <UploadIcon className="mr-2 h-5 w-5" /> Submit
         </button>
       );
     } else {
       return (
-        <button className="mr-1 mb-1 rounded-xl bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white opacity-70 shadow outline-none transition-all">
-          Complete all questions
+        <button className="mr-1 mb-1 flex flex-row items-center justify-center rounded-xl bg-red-600 px-6 py-3 text-sm font-bold uppercase text-white opacity-70 shadow-md outline-none transition-all">
+          <XIcon className="mr-2 h-5 w-5" /> Complete all questions
         </button>
       );
     }
@@ -149,9 +158,10 @@ const Test = () => {
             showConfetti={showConfetti}
           />
 
-          <div className="mb-6 flex items-center rounded-xl bg-gray-50 p-6 py-5 shadow-lg dark:bg-gray-800">
-            <span className="text-lg">
-              Signed in as {session ? session?.user?.name : "Guest"}
+          <div className="mb-6 flex items-center rounded-xl bg-gray-50 p-6 py-5 shadow-md dark:bg-gray-800">
+            <span className="flex flex-row items-center text-lg">
+              <UserCircleIcon className="mr-2 h-8 w-8" /> Signed in as{" "}
+              {session ? session?.user?.name : "Guest"}
             </span>
 
             <button
@@ -181,8 +191,9 @@ const Test = () => {
             Test!
           </h1>
           <div className="mb-6 max-w-4xl rounded-xl text-xs lg:text-sm xl:text-base ">
-            <h2 className="mb-4 text-xl font-bold">
-              A Few Things to Keep in Mind:
+            <h2 className="mb-4 flex flex-row items-center text-xl font-bold">
+              <InformationCircleIcon className="mr-2 h-6 w-6" /> A Few Things to
+              Keep in Mind:
             </h2>
             <ul className="mb-4 list-inside list-disc">
               <li>Please ensure that you have a stable internet connection.</li>
@@ -209,7 +220,9 @@ const Test = () => {
                   className="mb-2 block font-semibold text-gray-700 dark:text-white lg:text-lg"
                   htmlFor="teamName"
                 >
-                  Team Name
+                  <div className="flex flex-row items-center">
+                    <AtSymbolIcon className="mr-2 inline h-5 w-5" /> Team Name
+                  </div>
                   <p className="text-xs font-normal italic dark:text-gray-500 lg:text-sm">
                     Choose a creative, appropriate name for your team.
                   </p>
@@ -228,38 +241,42 @@ const Test = () => {
               </div>
               <div className="mb-4">
                 <label
-                  className="mb-2 block  font-semibold text-gray-700 dark:text-white lg:text-lg"
+                  className="mb-2 block font-semibold text-gray-700 dark:text-white lg:text-lg"
                   htmlFor="teamMembers"
                 >
-                  Team Members
+                  <div className="flex flex-row items-center">
+                    <UserGroupIcon className="mr-2 inline h-5 w-5" /> Team
+                    Members
+                  </div>
                   <p className="text-xs font-normal italic dark:text-gray-500 lg:text-sm">
                     {
                       'If you wish to remain anonymous, put "anonymous" in the boxes.'
                     }
                   </p>
                 </label>
-                <ul className="flex flex-col gap-3 rounded-xl border border-gray-400 bg-gray-300 p-2 dark:border-gray-600 dark:bg-gray-800">
+                <ul className="flex flex-col gap-3 rounded-xl border border-gray-400 bg-gray-100 p-2 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                   {teamMembers.map((member, index) => (
                     <li
                       key={index}
                       className="flex items-center justify-between"
                     >
-                      <span>
-                        Member {index + 1}: {member}
+                      <span className="flex flex-row items-center">
+                        <UserIcon className="mr-2 h-5 w-5" /> Member {index + 1}
+                        : {member}
                       </span>
                       <button
                         type="button"
-                        className="mr-1 text-red-500 hover:text-red-700 focus:text-red-700"
+                        className="mr-1 text-red-500 duration-150 hover:text-red-700 focus:text-red-700 dark:text-red-600 dark:hover:text-red-800"
                         onClick={() => removeMember(index)}
                       >
-                        <MinusIcon className="h-5 w-5" />
+                        <UserRemoveIcon className="h-5 w-5" />
                       </button>
                     </li>
                   ))}
                   {teamMembers.length < 4 && (
                     <li className="flex items-center">
                       <input
-                        className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-100 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                        className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
                         type="text"
                         placeholder="Enter team member name"
                         value={newMember}
@@ -272,7 +289,7 @@ const Test = () => {
                         className="ml-2 rounded-full bg-blue-500 p-1 text-white duration-150 hover:bg-blue-600 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700"
                         onClick={() => addMember()}
                       >
-                        <PlusIcon className="h-5 w-5" />
+                        <UserAddIcon className="h-5 w-5" />
                       </button>
                     </li>
                   )}

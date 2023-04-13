@@ -1,4 +1,5 @@
 import { type ChangeEvent } from "react";
+import { CheckCircleIcon } from "@heroicons/react/solid";
 
 interface Props {
   id: number;
@@ -12,8 +13,16 @@ const Question: React.FC<Props> = ({ id, state, setState }) => {
   };
 
   return (
-    <div className="mb-4 rounded-xl bg-gray-50 p-6 shadow-lg dark:bg-gray-800">
-      <h3 className="mb-4 text-xl font-semibold">Question {id}</h3>
+    <div className="mb-4 rounded-xl bg-gray-50 p-6 shadow-md dark:bg-gray-800">
+      <div className="mb-4 flex flex-row items-center">
+        <h3 className="text-xl font-semibold">Question {id}</h3>
+        {state && (
+          <>
+            <CheckCircleIcon className="ml-auto h-5 w-5 text-emerald-500" />
+            <span className="ml-2 ">Saved Locally</span>
+          </>
+        )}
+      </div>
       <input
         type="text"
         value={state}

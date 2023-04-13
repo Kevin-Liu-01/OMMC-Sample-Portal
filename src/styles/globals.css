@@ -32,7 +32,7 @@
   }
 
   .scrollbar::-webkit-scrollbar-corner {
-    @apply bg-gray-200 dark:bg-gray-600;
+    @apply bg-gray-400 dark:bg-gray-800;
   }
 }
 
@@ -47,5 +47,5 @@
   margin: 0 auto 2rem;
   width: 100% !important;
   height: 100% !important;
-  border-radius: 0.5rem;
+  border-radius: 0.8rem;
 }

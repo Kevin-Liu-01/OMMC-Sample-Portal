@@ -58,10 +58,11 @@ const SubmissionsTable = () => {
   return (
     <>
       {session?.user.email === "23evanchang@gmail.com" ||
-      session?.user.email === "kk23907751@gmail.com" ? (
+      session?.user.email === "kk23907751@gmail.com" ||
+      session?.user.email === "billchanghaofei@gmail.com" ? (
         <main className="min-h-[100vh] overflow-hidden bg-gray-400 font-general duration-150 dark:bg-gray-800">
           <Navbar />
-          <div className="z-2 pattern-dots absolute h-[calc(100vh-3.7rem)] w-full duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-700 dark:pattern-bg-gray-900"></div>
+          <div className="z-2 pattern-cross absolute h-[calc(100vh-3.7rem)] w-full duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-700 dark:pattern-bg-gray-900"></div>
 
           <div className="scrollbar relative z-10 h-[calc(100vh-3.7rem)] overflow-scroll  p-4">
             <table className="w-full border-collapse divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-300 dark:divide-gray-800 dark:border-gray-600">
@@ -169,22 +170,25 @@ const SubmissionsTable = () => {
                         )}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .q1
-                        }
+                        {userSubmissions[0][
+                          Object.keys(userSubmissions[0])[0]
+                        ].q1
+                          .replace('"', "")
+                          .replace('"', "")}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .q2
-                        }
+                        {userSubmissions[0][
+                          Object.keys(userSubmissions[0])[0]
+                        ].q2
+                          .replace('"', "")
+                          .replace('"', "")}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .q3
-                        }
+                        {userSubmissions[0][
+                          Object.keys(userSubmissions[0])[0]
+                        ].q3
+                          .replace('"', "")
+                          .replace('"', "")}
                       </td>
                     </tr>
                   )

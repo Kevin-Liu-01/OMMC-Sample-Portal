@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import { XIcon, UploadIcon } from "@heroicons/react/solid";
 
 interface Props {
   showModal: boolean;
@@ -63,24 +64,35 @@ const Modal: React.FC<Props> = ({
                 {/*header*/}
                 <div className="flex items-start justify-between rounded-t border-b border-solid border-slate-200 p-5 duration-150 dark:border-slate-800">
                   <h3 className="text-2xl font-semibold xl:text-3xl">
-                    Ready to submit?
+                    Ready to Submit?
                   </h3>
                   <button
                     className="float-right ml-auto border-0 bg-transparent p-1 text-3xl font-semibold leading-none outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
                   >
-                    <span className="block h-6 w-6 bg-transparent text-2xl text-slate-900 outline-none focus:outline-none">
-                      ×
-                    </span>
+                    <XIcon className="block h-6 w-6 bg-transparent text-2xl text-slate-900 outline-none focus:outline-none dark:text-slate-300" />
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative flex-auto p-6">
+                <div className="relative flex-auto p-6 py-4">
                   <div className="my-3 text-lg leading-relaxed text-slate-500 duration-150 dark:text-slate-400">
                     <p> You will be able to submit another set of answers.</p>
-                    <p className="text-base italic">
-                      Submitting for Team {teamName}.
+                    <p className="mt-2 text-base">
+                      Submitting for Team {teamName}:
                     </p>{" "}
+                    <div className="mt-2 flex flex-row gap-2">
+                      {
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+                        JSON.parse(teamMember!).map((member: string) => (
+                          <p
+                            className="rounded-lg bg-gray-200 px-2 py-1 text-sm dark:bg-gray-800"
+                            key={member}
+                          >
+                            {member}
+                          </p>
+                        ))
+                      }
+                    </div>
                   </div>
                 </div>
                 {/*footer*/}
@@ -93,12 +105,12 @@ const Modal: React.FC<Props> = ({
                     Close
                   </button>
                   <button
-                    className="mr-1 mb-1 rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-emerald-600 hover:shadow-lg focus:outline-none active:bg-emerald-600"
+                    className="mr-1 mb-1 flex flex-row items-center rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-emerald-600 hover:shadow-lg focus:outline-none active:bg-emerald-600"
                     type="submit"
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onClick={() => submissionHandler()}
                   >
-                    Submit
+                    <UploadIcon className="mr-2 h-5 w-5 " /> Submit
                   </button>
                 </div>
               </div>

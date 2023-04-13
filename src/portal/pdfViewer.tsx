@@ -1,7 +1,13 @@
 import { useState, type SetStateAction, type ChangeEvent } from "react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/solid";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  DocumentDownloadIcon,
+} from "@heroicons/react/solid";
 // import { env } from "../../env.mjs";
 import { Document, Page, pdfjs } from "react-pdf";
+import Link from "next/link";
+
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
@@ -35,7 +41,10 @@ const PDFViewer = () => {
     pageEffect();
   };
   return (
-    <section className="scrollbar z-10 col-span-7 flex md:h-[calc(100vh-3.7rem)] justify-center overflow-x-hidden overflow-y-scroll md:border-r-[1.5px] border-gray-600 shadow-inner md:col-span-5">
+    <section
+      id=""
+      className="scrollbar z-10 col-span-7 flex justify-center overflow-x-hidden overflow-y-scroll border-gray-600 shadow-inner md:col-span-5 md:h-[calc(100vh-3.58rem)] md:border-r-[1.5px]"
+    >
       <nav className="absolute top-6 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70 md:top-auto md:bottom-4">
         <button
           className={`${
@@ -73,8 +82,16 @@ const PDFViewer = () => {
           />
           {"  "}
           of {numPages}
-        </p>
+        </p>{" "}
+        <Link
+          href="/OMMC_2023_Shortlist.pdf"
+          className="flex flex-row items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800"
+        >
+          <DocumentDownloadIcon className="mr-2 inline h-4 w-4" />
+          Download
+        </Link>
       </nav>
+
       <div className="relative flex select-none flex-col justify-center">
         <Document
           file="/OMMC_2023_Shortlist.pdf"

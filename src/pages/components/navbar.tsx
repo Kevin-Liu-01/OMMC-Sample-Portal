@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
@@ -61,27 +62,31 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative z-20 border-b-[1.5px] border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-900 dark:text-gray-400">
+    <nav className="relative z-20 overflow-hidden border-b-[1.5px] border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-900 dark:text-gray-400">
+      <div className="z-5 pattern-opacity-70 pattern-dots absolute h-[100vh] w-[100vw] duration-150 pattern-bg-gray-200 pattern-gray-300 pattern-size-6 dark:pattern-gray-800 dark:pattern-bg-gray-900"></div>
+
       <div className="flex flex-row justify-center">
-        <div className="flex flex-row items-center">
-          <Image
-            src="/images/logo.png"
-            alt="logo"
-            className="mx-4 inline h-12 w-12"
-            height={400}
-            width={400}
-            priority
-          />
+        <div className="relative z-20 flex flex-row items-center">
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="logo"
+              className="mx-4 inline h-12 w-12"
+              height={400}
+              width={400}
+              priority
+            />
+          </Link>
           <h1 className="relative hidden select-none text-2xl font-extrabold tracking-tight duration-75 dark:text-white sm:inline lg:text-4xl 2xl:text-[2.5rem]">
             <span className="duration-150 dark:text-red-600 ">
               OMMC Submission Portal
             </span>
           </h1>
         </div>
-        <div className="ml-auto flex ">
+        <div className="relative z-20 ml-auto flex ">
           <div className="hidden h-full items-center py-2 px-2 duration-75 dark:text-white sm:flex">
             <span className="select-none text-xl">
-              {session?.user?.name || "Sign in to submit"}
+              {session?.user?.name || "Register to Submit"}
             </span>
             <div className="relative my-auto ml-2 inline h-10 w-10 rounded-full border-[1.5px] border-gray-900 duration-75 dark:border-white">
               {session?.user.image ? (
@@ -110,7 +115,7 @@ const Navbar = () => {
             )}
           </button>
 
-          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
+          <div className="relative flex h-full items-center justify-center border-x-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
             {renderThemeChanger()}
           </div>
         </div>
