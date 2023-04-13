@@ -37,7 +37,7 @@ export default async function handler(
 
     // Add the new submission to the user's document
     const userDocData = {
-      [data.teamMember ? data.teamMember : "anonymous"]: {
+      [data.teamMember ? data.teamMember : "[anonymous]"]: {
         teamName: data.teamName,
         started: data.started,
         q1: data.q1,
