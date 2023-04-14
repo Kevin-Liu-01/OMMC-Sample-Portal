@@ -6,12 +6,17 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
 
-        <title>OMMC Submission Portal </title>
+        <title>OMMC Portal </title>
         <meta
           name="description"
           content="Test Portal for the OMMC Year 3 test."
         />
         <meta content="/favicon.ico" property="og:image" />
+        <meta
+          name="google-site-verification"
+          content="mvNROFtoLu1hm048arKrTbsx_md-cJS2mZL8L2sQjQ4"
+        />
+
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         {/*
