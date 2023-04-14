@@ -57,7 +57,6 @@ const Test = () => {
   useEffect(() => {
     if (current) {
       Object.entries(current).forEach(([, submissions]) => {
-        console.log(submissions[0]);
         if (submissions[0].email === session?.user?.email) {
           setTeamMembers(JSON.parse(submissions[0].teamMembers));
           setStarted(submissions[0].started === "true");

@@ -42,11 +42,7 @@ const Modal: React.FC<Props> = ({
         email: session?.user.email || "",
         image: session?.user.image || "",
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    }).then((res) => res.json());
 
     setTimeout(() => {
       showConfetti(false);
