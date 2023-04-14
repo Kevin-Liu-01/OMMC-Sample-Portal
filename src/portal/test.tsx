@@ -57,24 +57,17 @@ const Test = () => {
   useEffect(() => {
     if (current) {
       Object.entries(current).forEach(([, submissions]) => {
-        submissions.forEach((submission) => {
-          const keys = Object.keys(submission);
-
-          keys.some((key) => {
-            const userSubmission = submission[key];
-            if (userSubmission.email === session?.user?.email) {
-              console.log(key);
-              setTeamMembers(JSON.parse(key));
-              setStarted(userSubmission.started === "true");
-              setTeamName(
-                userSubmission.teamName.replace('"', "").replace('"', "")
-              );
-              setQ1(userSubmission.q1.replace('"', "").replace('"', ""));
-              setQ2(userSubmission.q2.replace('"', "").replace('"', ""));
-              setQ3(userSubmission.q3.replace('"', "").replace('"', ""));
-            }
-          });
-        });
+        console.log(submissions[0]);
+        if (submissions[0].email === session?.user?.email) {
+          setTeamMembers(JSON.parse(submissions[0].teamMembers));
+          setStarted(submissions[0].started === "true");
+          setTeamName(
+            submissions[0].teamName.replace('"', "").replace('"', "")
+          );
+          setQ1(submissions[0].q1.replace('"', "").replace('"', ""));
+          setQ2(submissions[0].q2.replace('"', "").replace('"', ""));
+          setQ3(submissions[0].q3.replace('"', "").replace('"', ""));
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -278,7 +271,7 @@ const Test = () => {
                       <input
                         className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
                         type="text"
-                        placeholder="Enter team member name"
+                        placeholder="Add a team member"
                         value={newMember}
                         onChange={(event) => setNewMember(event.target.value)}
                         maxLength={20}
@@ -295,12 +288,21 @@ const Test = () => {
                   )}
                 </ul>
               </div>
-              <button
-                type="submit"
-                className="focus:shadow-outline flex items-center rounded-md bg-red-600 py-2 px-3 font-semibold text-white duration-150 hover:bg-red-700 focus:outline-none"
-              >
-                Begin <ArrowRightIcon className="ml-1 inline h-5 w-5" />
-              </button>
+              {teamMembers.length >= 1 && newMember === "" ? (
+                <button
+                  type="submit"
+                  className="focus:shadow-outline flex items-center rounded-md bg-red-600 py-2 px-3 font-semibold text-white duration-150 hover:bg-red-700 focus:outline-none"
+                >
+                  Begin <ArrowRightIcon className="ml-1 inline h-5 w-5" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className="flex items-center rounded-md bg-red-600 py-2 px-3 font-semibold text-white opacity-70 duration-150 focus:outline-none"
+                >
+                  Begin <ArrowRightIcon className="ml-1 inline h-5 w-5" />
+                </button>
+              )}
             </form>
           </div>
         </div>

@@ -1,26 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 import { useSession } from "next-auth/react";
-import { type Key, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./components/navbar";
 import Image from "next/image";
 import { ArrowSmRightIcon, EyeOffIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 
-type SubmissionData = {
-  teamMember: string;
-  teamName: string;
-  started: string;
-  q1: string;
-  q2: string;
-  q3: string;
-  username: string;
-  email: string;
-  image: string;
-};
+// type SubmissionData = {
+//   teamMember: string;
+//   teamName: string;
+//   started: string;
+//   q1: string;
+//   q2: string;
+//   q3: string;
+//   username: string;
+//   email: string;
+//   image: string;
+// };
 
 const SubmissionsTable = () => {
   const { data: session } = useSession();
@@ -96,99 +97,57 @@ const SubmissionsTable = () => {
               </thead>
               <tbody className="divide-y divide-gray-200  dark:divide-gray-700 ">
                 {Object.entries<Record<string, Submission[]>>(submissions).map(
-                  ([user, userSubmissions]) => (
+                  (user) => (
                     <tr
-                      key={user}
+                      key={user[1][0].username}
                       className="odd:bg-gray-100 even:bg-gray-200 dark:odd:bg-gray-600 dark:even:bg-gray-700"
                     >
                       <td className="flex flex-row items-center gap-4 whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
                         <Image
                           alt="pfp"
-                          src={
-                            userSubmissions[0][
-                              Object.keys(userSubmissions[0])[0]
-                            ].image
-                          }
+                          src={user[1][0].image}
                           className="inline rounded-full"
                           height={50}
                           width={50}
                         />
                         <div className="flex flex-col">
-                          <div className="text-lg">{user}</div>
-                          <div>
-                            {
-                              userSubmissions[0][
-                                Object.keys(userSubmissions[0])[0]
-                              ].email
-                            }
-                          </div>
+                          <div className="text-lg">{user[1][0].username}</div>
+                          <div>{user[1][0].email}</div>
                         </div>
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {userSubmissions.map(
-                          (
-                            submission: SubmissionData,
-                            index: Key | null | undefined
-                          ) => (
-                            <div key={index}>
-                              {JSON.parse(Object.keys(submission)).map(
-                                (member) => {
-                                  return (
-                                    <p
-                                      className="my-1 rounded-xl bg-gray-300 px-2 py-1 dark:bg-gray-500"
-                                      key={member}
-                                    >
-                                      {member}
-                                    </p>
-                                  );
-                                }
-                              )}
-                            </div>
-                          )
-                        )}
+                        {JSON.parse(user[1][0]?.teamMembers).map((members) => (
+                          <div key={members}>
+                            <p
+                              className="my-1 rounded-xl bg-gray-300 px-2 py-1 dark:bg-gray-500"
+                              key={members}
+                            >
+                              {members}
+                            </p>
+                          </div>
+                        ))}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .teamName
-                        }
+                        {user[1][0].teamName}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .started
-                        }
+                        {user[1][0].started}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
                         {totalCorrect(
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .q1,
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .q2,
-                          userSubmissions[0][Object.keys(userSubmissions[0])[0]]
-                            .q3
+                          user[1][0].q1,
+                          user[1][0].q2,
+                          user[1][0].q3
                         )}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {userSubmissions[0][
-                          Object.keys(userSubmissions[0])[0]
-                        ].q1
-                          .replace('"', "")
-                          .replace('"', "")}
+                        {user[1][0].q1.replace('"', "").replace('"', "")}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {userSubmissions[0][
-                          Object.keys(userSubmissions[0])[0]
-                        ].q2
-                          .replace('"', "")
-                          .replace('"', "")}
+                        {user[1][0].q2.replace('"', "").replace('"', "")}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
-                        {userSubmissions[0][
-                          Object.keys(userSubmissions[0])[0]
-                        ].q3
-                          .replace('"', "")
-                          .replace('"', "")}
+                        {user[1][0].q3.replace('"', "").replace('"', "")}
                       </td>
                     </tr>
                   )

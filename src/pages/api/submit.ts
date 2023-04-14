@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
 import firestore from "../../firebase";
 
 type Data =
   | {
-      data: any;
+      data: unknown;
     }
   | {
       message: string;
@@ -37,16 +37,15 @@ export default async function handler(
 
     // Add the new submission to the user's document
     const userDocData = {
-      [data.teamMember ? data.teamMember : '["anonymous"]']: {
-        teamName: data.teamName,
-        started: data.started,
-        q1: data.q1,
-        q2: data.q2,
-        q3: data.q3,
-        username: data.username,
-        email: data.email,
-        image: data.image,
-      },
+      username: data.username,
+      teamName: data.teamName,
+      started: data.started,
+      q1: data.q1,
+      q2: data.q2,
+      q3: data.q3,
+      teamMembers: data.teamMember,
+      email: data.email,
+      image: data.image,
     };
     await userDocRef.set(userDocData, { merge: true });
 
