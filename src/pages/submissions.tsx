@@ -61,13 +61,13 @@ const SubmissionsTable = () => {
       {session?.user.email === "23evanchang@gmail.com" ||
       session?.user.email === "kk23907751@gmail.com" ||
       session?.user.email === "billchanghaofei@gmail.com" ? (
-        <main className="min-h-[100vh] overflow-hidden bg-gray-400 font-general duration-150 dark:bg-gray-800">
+        <main className="min-h-[100vh] overflow-hidden bg-gray-400 font-general duration-150 dark:bg-gray-900">
           <Navbar />
           <div className="z-2 pattern-cross absolute h-[calc(100vh-3.7rem)] w-full duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-700 dark:pattern-bg-gray-900"></div>
 
           <div className="scrollbar relative z-10 h-[calc(100vh-3.7rem)] overflow-scroll  p-4">
             <table className="w-full border-collapse divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-300 dark:divide-gray-800 dark:border-gray-600">
-              <thead className="bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+              <thead className="bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                     User
@@ -100,7 +100,7 @@ const SubmissionsTable = () => {
                   (user) => (
                     <tr
                       key={user[1][0].username}
-                      className="odd:bg-gray-100 even:bg-gray-200 dark:odd:bg-gray-600 dark:even:bg-gray-700"
+                      className="odd:bg-gray-100 even:bg-gray-200 dark:odd:bg-[#2d394a] dark:even:bg-gray-800"
                     >
                       <td className="flex flex-row items-center gap-4 whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
                         <Image
