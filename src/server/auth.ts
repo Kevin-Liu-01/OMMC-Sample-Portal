@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  adapter: FirestoreAdapter(firestore),
+  // adapter: FirestoreAdapter(firestore),
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
