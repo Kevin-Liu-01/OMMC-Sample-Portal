@@ -1,4 +1,4 @@
-import { FirestoreAdapter } from "@next-auth/firebase-adapter";
+// import { FirestoreAdapter } from "@next-auth/firebase-adapter";
 import { type GetServerSidePropsContext } from "next";
 import {
   type DefaultSession,
@@ -10,7 +10,7 @@ import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 
 import { env } from "~/env.mjs";
-import { firestore } from "~/server/db";
+// import { firestore } from "~/server/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
   //     return session;
   //   },
   // },
-  adapter: FirestoreAdapter(firestore),
+  // adapter: FirestoreAdapter(firestore),
   providers: [
     GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,
