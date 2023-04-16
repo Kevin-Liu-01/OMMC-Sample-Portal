@@ -50,7 +50,7 @@ const PDFViewer = () => {
           className={`${
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             buttonEffect && "animate-wiggle"
-          } flex items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800`}
+          } flex items-center rounded-lg bg-gray-100 px-2 py-1 text-sm duration-150 hover:scale-105 dark:bg-gray-800 lg:text-base`}
           onClick={() => {
             handleButtonClick(setButtonEffect, goToPrevPage);
           }}
@@ -62,7 +62,7 @@ const PDFViewer = () => {
           className={`${
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             buttonEffect2 && "animate-wiggle"
-          } flex items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800`}
+          } flex items-center rounded-lg bg-gray-100 px-2 py-1 text-sm duration-150 hover:scale-105 dark:bg-gray-800 lg:text-base`}
           onClick={() => {
             handleButtonClick(setButtonEffect2, goToNextPage);
           }}
@@ -87,12 +87,12 @@ const PDFViewer = () => {
           href="/OMMC_2023_Shortlist.pdf"
           className="flex flex-row items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800"
         >
-          <DocumentDownloadIcon className="mr-2 inline h-4 w-4" />
-          Download
+          <DocumentDownloadIcon className="inline h-4 w-4 lg:mr-2" />
+          <span className="hidden lg:inline">Download</span>
         </Link>
       </nav>
 
-      <div className="relative flex select-none flex-col justify-center">
+      <div className="relative mt-[4.5rem] flex select-none flex-col justify-center md:mt-0">
         <Document
           file="/OMMC_2023_Shortlist.pdf"
           onLoadSuccess={onDocumentLoadSuccess}

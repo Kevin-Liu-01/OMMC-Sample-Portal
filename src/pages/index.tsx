@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           </h5>
           <button
             onClick={() => void signIn()}
-            className="z-10 mt-8 flex select-none flex-row items-center rounded-2xl p-4 duration-150 hover:scale-[1.02] hover:underline"
+            className="z-10 mt-8 flex select-none flex-row items-center rounded-2xl p-4 text-xl duration-150 hover:scale-[1.02] hover:underline lg:text-3xl"
           >
             <CursorClickIcon className="mr-2 h-7 w-7" /> Register to Submit
           </button>
