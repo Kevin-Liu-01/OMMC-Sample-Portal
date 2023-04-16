@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-title-in-document-head */
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -6,7 +7,7 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
 
-        <title>OMMC Portal </title>
+        <title>Online Monmouth Math Competition 2023 Portal </title>
         <meta
           name="description"
           content="Test Portal for the OMMC Year 3 test."

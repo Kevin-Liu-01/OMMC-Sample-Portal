@@ -1,10 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import firestore from "../../firebase";
 
 type Data =
   | {
-      data: any;
+      data: unknown;
     }
   | {
       message: string;
@@ -30,8 +29,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data | UserData>
 ) {
-  const session = await getSession({ req });
-
   try {
     // Create a reference to the user's collection
     const userCollectionRef = firestore.collection("data");

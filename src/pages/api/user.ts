@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data =
   | {
-      csrfToken: any;
+      csrfToken: unknown;
       name: string;
       email: string;
       password: string;
