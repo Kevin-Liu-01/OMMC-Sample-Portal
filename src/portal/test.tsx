@@ -135,7 +135,7 @@ const Test = () => {
   };
 
   return (
-    <section className="scrollbar z-10 col-span-7 h-[calc(100vh-3.58rem)] overflow-y-scroll bg-gray-200 p-8 dark:bg-gray-900/95">
+    <section className="scrollbar z-10 col-span-7 h-[calc(100vh-3.58rem)] overflow-y-scroll bg-gray-200 p-4 dark:bg-gray-900/95 md:p-8">
       <Confetti
         numberOfPieces={confetti ? 150 : 0}
         // width={}
@@ -150,9 +150,9 @@ const Test = () => {
             showConfetti={showConfetti}
           />
 
-          <div className="mb-6 flex items-center rounded-xl bg-gray-50 p-6 py-5 shadow-md dark:bg-gray-800">
-            <span className="flex flex-row items-center text-lg">
-              <UserCircleIcon className="mr-2 h-8 w-8" /> Signed in as{" "}
+          <div className="mb-6 flex items-center rounded-xl bg-gray-50 p-4 shadow-md dark:bg-gray-800 md:p-6 md:py-5">
+            <span className="flex flex-row items-center text-xs md:text-lg">
+              <UserCircleIcon className="mr-2 h-12 w-12" /> Signed in as{" "}
               {session ? session?.user?.name : "Guest"}
             </span>
 

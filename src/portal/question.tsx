@@ -13,13 +13,13 @@ const Question: React.FC<Props> = ({ id, state, setState }) => {
   };
 
   return (
-    <div className="mb-4 rounded-xl bg-gray-50 p-6 shadow-md dark:bg-gray-800">
+    <div className="mb-4 rounded-xl bg-gray-50 p-4 shadow-md dark:bg-gray-800 md:p-6">
       <div className="mb-4 flex flex-row items-center">
-        <h3 className="text-xl font-semibold">Question {id}</h3>
+        <h3 className="text-sm font-semibold md:text-xl">Question {id}</h3>
         {state && (
           <>
-            <CheckCircleIcon className="ml-auto h-5 w-5 text-emerald-500" />
-            <span className="ml-2 ">Saved Locally</span>
+            <CheckCircleIcon className="ml-auto h-5 w-5 text-emerald-500 " />
+            <span className="ml-2 text-xs md:text-base">Saved Locally</span>
           </>
         )}
       </div>

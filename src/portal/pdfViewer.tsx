@@ -45,7 +45,7 @@ const PDFViewer = () => {
       id=""
       className="scrollbar z-10 col-span-7 flex justify-center overflow-x-hidden overflow-y-scroll border-gray-600 shadow-inner md:col-span-5 md:h-[calc(100vh-3.58rem)] md:border-r-[1.5px]"
     >
-      <nav className="absolute top-6 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70 md:top-auto md:bottom-4">
+      <nav className="absolute top-6 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl bg-gray-300 bg-opacity-90 p-2 shadow-lg duration-150 dark:bg-gray-700 dark:hover:bg-opacity-70 md:top-auto md:bottom-4">
         <button
           className={`${
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -96,7 +96,7 @@ const PDFViewer = () => {
         <Document
           file="/OMMC_2023_Shortlist.pdf"
           onLoadSuccess={onDocumentLoadSuccess}
-          className="react-pdf__Page__canvas p-6 "
+          className="react-pdf__Page__canvas p-4 md:p-6 "
         >
           <Page pageNumber={pageNumber} />
         </Document>

@@ -53,7 +53,7 @@ const Modal: React.FC<Props> = ({
     <>
       {showModal ? (
         <>
-          <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none">
+          <div className="fixed inset-0 z-50 mx-4 flex items-center justify-center overflow-y-auto overflow-x-hidden outline-none focus:outline-none md:mx-0">
             <div className="relative my-6 mx-auto w-auto max-w-3xl xl:max-w-4xl">
               {/*content*/}
               <div className="relative flex w-full flex-col rounded-2xl border-0 bg-white shadow-lg outline-none duration-150 focus:outline-none dark:bg-gray-700">

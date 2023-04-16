@@ -71,7 +71,7 @@ const Navbar = () => {
             <Image
               src="/images/logo.png"
               alt="logo"
-              className="mx-4 inline h-12 w-12"
+              className="mx-4 my-1 inline h-11 w-11 hover:scale-105 md:my-0"
               height={400}
               width={400}
               priority
@@ -84,8 +84,8 @@ const Navbar = () => {
           </h1>
         </div>
         <div className="relative z-20 ml-auto flex ">
-          <div className="hidden h-full items-center py-2 px-2 duration-75 dark:text-white sm:flex">
-            <span className="select-none text-xl">
+          <div className=" flex h-full items-center py-2 px-2 duration-75 dark:text-white">
+            <span className="hidden select-none text-xl sm:inline">
               {session?.user?.name || "Register to Submit"}
             </span>
             <div className="relative my-auto ml-2 inline h-10 w-10 rounded-full border-[1.5px] border-gray-900 duration-75 dark:border-white">
@@ -115,7 +115,7 @@ const Navbar = () => {
             )}
           </button>
 
-          <div className="relative flex h-full items-center justify-center border-x-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
+          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
             {renderThemeChanger()}
           </div>
         </div>

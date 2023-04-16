@@ -6,7 +6,6 @@ export default function Document() {
       <Head>
         <meta charSet="utf-8" />
 
-        <title>OMMC Portal</title>
         <meta
           name="description"
           content="Test Portal for the OMMC Year 3 test."
