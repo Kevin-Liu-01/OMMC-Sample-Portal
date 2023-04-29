@@ -63,7 +63,7 @@ const Navbar = () => {
 
   return (
     <nav className="relative z-20 overflow-hidden border-b-[1.5px] border-gray-600 bg-gray-100 font-general text-gray-900 shadow-lg duration-75 dark:bg-gray-900 dark:text-gray-400">
-      <div className="z-5 pattern-opacity-70 pattern-dots absolute h-[100vh] w-[100vw] duration-150 pattern-bg-gray-200 pattern-gray-300 pattern-size-6 dark:pattern-gray-800 dark:pattern-bg-gray-900"></div>
+      <div className="z-5 pattern-opacity-70 pattern-dots absolute h-[100vh] w-[100vw] duration-150 pattern-bg-gray-200 pattern-gray-300 pattern-size-4 dark:pattern-gray-800 dark:pattern-bg-gray-900"></div>
 
       <div className="flex flex-row justify-center">
         <div className="relative z-20 flex flex-row items-center">

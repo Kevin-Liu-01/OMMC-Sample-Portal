@@ -19,10 +19,12 @@ const Home: NextPage = () => {
         <Navbar />
         {!session?.user ? (
           <div className="relative z-10 flex  h-[calc(100vh-3.58rem)] w-full flex-col items-center justify-center text-3xl font-extrabold ">
+            {" "}
+            <div className="z-5 pattern-opacity-70 pattern-cross absolute h-[100vh] w-[100vw] duration-150 pattern-bg-gray-100 pattern-gray-300 pattern-size-8 dark:pattern-gray-800 dark:pattern-bg-gray-900"></div>
             <Image
               alt="Background"
               src="/images/portal-light.png"
-              className="z-5 absolute h-full w-full opacity-20 blur-[3px] dark:hidden"
+              className="z-5 absolute h-full w-full object-cover opacity-20 blur-[3px] dark:hidden"
               priority
               height={980}
               width={980}
@@ -30,7 +32,7 @@ const Home: NextPage = () => {
             <Image
               alt="Background"
               src="/images/portal-dark.png"
-              className="z-5 absolute hidden h-full w-full opacity-20 blur-[3px] dark:inline"
+              className="z-5 absolute hidden h-full w-full object-cover opacity-20 blur-[3px] dark:inline"
               priority
               height={980}
               width={980}
