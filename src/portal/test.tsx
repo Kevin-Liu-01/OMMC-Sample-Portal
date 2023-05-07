@@ -20,6 +20,7 @@ import {
   UploadIcon,
   CheckIcon,
   XIcon,
+  SpeakerphoneIcon,
 } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import Question from "./question";
@@ -183,6 +184,11 @@ const Test = () => {
             Test!
           </h1>
           <div className="mb-6 max-w-4xl rounded-xl text-xs lg:text-sm xl:text-base ">
+            <h2 className="mb-6 flex items-center font-bold uppercase italic text-red-600">
+              <SpeakerphoneIcon className="mr-2 h-6 w-6" />
+              DISCLAIMER: This is not the OMMC Year 3 Test. This is a mock test
+              with sample problems.
+            </h2>
             <h2 className="mb-4 flex flex-row items-center text-xl font-bold">
               <InformationCircleIcon className="mr-2 h-6 w-6" /> A Few Things to
               Keep in Mind:
@@ -290,9 +296,9 @@ const Test = () => {
               {teamMembers.length >= 1 && newMember === "" ? (
                 <button
                   type="submit"
-                  className="focus:shadow-outline flex items-center rounded-md bg-red-600 py-2 px-3 font-semibold text-white duration-150 hover:bg-red-700 focus:outline-none"
+                  className="focus:shadow-outline flex items-center rounded-lg bg-red-600 py-2 px-3 text-sm font-bold text-white duration-150 hover:bg-red-700 focus:outline-none"
                 >
-                  Begin <ArrowRightIcon className="ml-1 inline h-5 w-5" />
+                  BEGIN <ArrowRightIcon className="ml-1 inline h-5 w-5" />
                 </button>
               ) : (
                 <button
