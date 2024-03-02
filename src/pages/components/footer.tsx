@@ -10,7 +10,7 @@ function Footer() {
         <div className="relative my-auto mr-4 flex flex-col md:mr-5">
           <Image
             className="z-10 h-20 w-20"
-            src="https://cdn.discordapp.com/attachments/1044744976942243880/1045383726756003880/OMMC-Logo_1.png"
+            src="/images/logo.png"
             alt="OMMCLogo-Footer"
             height={400}
             width={400}
