@@ -8,7 +8,7 @@ export default function Document() {
 
         <meta
           name="description"
-          content="Test Portal for the OMMC Year 3 test."
+          content="Official Sample Test Portal for the OMMC Competition. Any student 18 or younger anywhere in the world can sign up!"
         />
         <meta content="/favicon.ico" property="og:image" />
         <meta

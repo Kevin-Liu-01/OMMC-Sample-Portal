@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>OMMC Portal</title>
+        <title>OMMC Sample Test Portal</title>
       </Head>
       <main className="min-h-[100vh] overflow-hidden bg-white font-general duration-150 dark:bg-gray-900">
         <Navbar />
