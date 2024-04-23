@@ -84,7 +84,7 @@ const PDFViewer = () => {
           of {numPages}
         </p>{" "}
         <Link
-          href="/OMMC_2023_Shortlist.pdf"
+          href="/OMMC_Sample_Computational_2024.pdf"
           className="flex flex-row items-center rounded-lg bg-gray-100 px-2 py-1 duration-150 hover:scale-105 dark:bg-gray-800"
         >
           <DocumentDownloadIcon className="inline h-4 w-4 lg:mr-2" />
@@ -94,7 +94,7 @@ const PDFViewer = () => {
 
       <div className="relative mt-[4.5rem] flex select-none flex-col justify-center md:mt-0">
         <Document
-          file="/OMMC_2023_Shortlist.pdf"
+          file="/OMMC_Sample_Computational_2024.pdf"
           onLoadSuccess={onDocumentLoadSuccess}
           className="react-pdf__Page__canvas p-4 md:p-6 "
         >

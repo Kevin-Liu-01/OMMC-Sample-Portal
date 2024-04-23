@@ -179,14 +179,14 @@ const Test = () => {
           <h1 className="mb-6 text-xl font-bold md:text-2xl lg:mb-8 lg:text-3xl xl:text-4xl 2xl:text-[2.8rem]">
             Welcome to the{" "}
             <span className="rounded-xl bg-red-600 px-2 py-0.5 text-white xl:rounded-2xl xl:px-3">
-              OMMC Year 3
+              OMMC Year 4
             </span>{" "}
-            Test!
+            Sample!
           </h1>
           <div className="mb-6 max-w-4xl rounded-xl text-xs lg:text-sm xl:text-base ">
-            <h2 className="mb-6 flex items-center font-bold uppercase italic text-red-600">
+            <h2 className="mb-6 flex items-center rounded-lg border border-gray-400 bg-gray-100 p-2 font-bold uppercase italic text-red-600 dark:border-gray-600 dark:bg-gray-700">
               <SpeakerphoneIcon className="mr-2 h-6 w-6" />
-              DISCLAIMER: This is not the OMMC Year 3 Test. This is a mock test
+              DISCLAIMER: This is not the OMMC Year 4 Test. This is a mock test
               with sample problems.
             </h2>
             <h2 className="mb-4 flex flex-row items-center text-xl font-bold">

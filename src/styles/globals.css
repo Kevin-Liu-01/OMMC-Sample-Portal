@@ -44,8 +44,8 @@
 }
 
 .react-pdf__Page__canvas {
-  margin: 0 auto 2rem;
+  margin: 0 auto 0.25rem;
   width: 100% !important;
   height: 100% !important;
-  border-radius: 0.8rem;
+  border-radius: 0.6rem 0.6rem 0 0;
 }
