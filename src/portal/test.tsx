@@ -11,6 +11,7 @@ import {
   ArrowRightIcon,
   UserAddIcon,
   UserRemoveIcon,
+  ViewGridIcon,
   ArrowLeftIcon,
   UserCircleIcon,
   UserGroupIcon,
@@ -21,6 +22,7 @@ import {
   CheckIcon,
   XIcon,
   SpeakerphoneIcon,
+  UsersIcon,
 } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
 import Question from "./question";
@@ -39,6 +41,11 @@ const Test = () => {
     []
   );
   const [newMember, setNewMember] = useState("");
+  const [age, setAge] = useState("");
+  const [grade, setGrade] = useState("");
+  const [school, setSchool] = useState("");
+  const [layout, setLayout] = useState(false);
+
   const [q1, setQ1] = useLocalStorage("Q1", "");
   const [q2, setQ2] = useLocalStorage("Q2", "");
   const [q3, setQ3] = useLocalStorage("Q3", "");
@@ -92,9 +99,20 @@ const Test = () => {
   ];
 
   const addMember = () => {
-    if (newMember.trim() !== "") {
-      setTeamMembers([...teamMembers, newMember.trim()]);
+    if (
+      newMember.trim() !== "" &&
+      age.trim() !== "" &&
+      grade.trim() !== "" &&
+      school.trim() !== ""
+    ) {
+      setTeamMembers([
+        ...teamMembers,
+        { name: newMember.trim(), age: age, grade: grade, school: school },
+      ]);
       setNewMember("");
+      setAge("");
+      setGrade("");
+      setSchool("");
     }
   };
 
@@ -108,6 +126,16 @@ const Test = () => {
     event.preventDefault();
 
     setStarted(true);
+  };
+
+  const gridHandler = () => {
+    let returnedString = "grid ";
+    if (layout) {
+      returnedString += "grid-cols-2 gap-x-4";
+    } else {
+      returnedString += "grid-cols-1 ";
+    }
+    return returnedString;
   };
 
   const buttonSelector = () => {
@@ -156,22 +184,29 @@ const Test = () => {
               <UserCircleIcon className="mr-2 h-12 w-12" /> Signed in as{" "}
               {session ? session?.user?.name : "Guest"}
             </span>
-
+            <button
+              onClick={() => setLayout(!layout)}
+              className="ml-auto mr-2 flex items-center rounded-lg bg-red-600 px-2 py-1 font-semibold text-white duration-150 hover:bg-red-700"
+            >
+              <ViewGridIcon className="mr-1 h-5 w-5" /> Switch Layout
+            </button>
             <button
               onClick={() => setStarted(!started)}
-              className="ml-auto flex items-center rounded-lg bg-red-600 px-2 py-1 text-white duration-150 hover:bg-red-700"
+              className="flex items-center rounded-lg bg-red-600 px-2 py-1 font-bold text-white duration-150 hover:bg-red-700"
             >
-              <ArrowLeftIcon className="mr-1 h-5 w-5" /> Back
+              <ArrowLeftIcon className="mr-1 h-5 w-5" /> BACK
             </button>
           </div>
-          {questions.map((question) => (
-            <Question
-              key={question.id}
-              id={question.id}
-              state={question.state}
-              setState={question.setState}
-            />
-          ))}
+          <div className={gridHandler()}>
+            {questions.map((question) => (
+              <Question
+                key={question.id}
+                id={question.id}
+                state={question.state}
+                setState={question.setState}
+              />
+            ))}
+          </div>
           {buttonSelector()}
         </div>
       ) : (
@@ -278,6 +313,7 @@ const Test = () => {
                           {member.school}
                         </span>
                       </span>
+
                       <button
                         type="button"
                         className="mr-1 text-red-500 duration-150 hover:text-red-700 focus:text-red-700 dark:text-red-600 dark:hover:text-red-800"
@@ -288,7 +324,10 @@ const Test = () => {
                     </li>
                   ))}
                   {teamMembers.length < 4 && (
-                    <li className="flex items-center">
+                    <li className="flex items-center gap-1">
+                      <span className="flex flex-row items-center">
+                        <UsersIcon className="mr-1 h-5 w-5 text-red-600 dark:text-red-500" />
+                      </span>
                       <input
                         className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
                         type="text"
@@ -296,6 +335,48 @@ const Test = () => {
                         value={newMember}
                         onChange={(event) => setNewMember(event.target.value)}
                         maxLength={20}
+                        required={teamMembers.length < 1}
+                      />
+                      <input
+                        className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                        type="number"
+                        placeholder="Age"
+                        value={age}
+                        onChange={(event) => setAge(event.target.value)}
+                        max={18}
+                        min={0}
+                        onKeyPress={(event) => {
+                          if (event.target.value.length >= 2) {
+                            event.preventDefault();
+                          }
+                        }}
+                        required={teamMembers.length < 1}
+                      />
+                      <input
+                        className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                        type="number"
+                        placeholder="Grade Level"
+                        value={grade}
+                        onChange={(event) => setGrade(event.target.value)}
+                        max={12}
+                        min={0}
+                        onKeyPress={(event) => {
+                          if (
+                            event.target.value.length >= 2 ||
+                            event.target.value > 12
+                          ) {
+                            event.preventDefault();
+                          }
+                        }}
+                        required={teamMembers.length < 1}
+                      />
+                      <input
+                        className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                        type="text"
+                        placeholder="School Name"
+                        value={school}
+                        onChange={(event) => setSchool(event.target.value)}
+                        maxLength={30}
                         required={teamMembers.length < 1}
                       />
                       <button
@@ -309,7 +390,11 @@ const Test = () => {
                   )}
                 </ul>
               </div>
-              {teamMembers.length >= 1 && newMember === "" ? (
+              {teamMembers.length >= 1 &&
+              newMember === "" &&
+              age === "" &&
+              grade == "" &&
+              school === "" ? (
                 <button
                   type="submit"
                   className="focus:shadow-outline flex items-center rounded-lg bg-red-600 py-2 px-3 text-sm font-bold text-white duration-150 hover:bg-red-700 focus:outline-none"
@@ -319,9 +404,9 @@ const Test = () => {
               ) : (
                 <button
                   type="button"
-                  className="flex items-center rounded-md bg-red-600 py-2 px-3 font-semibold text-white opacity-70 duration-150 focus:outline-none"
+                  className="flex items-center rounded-lg bg-red-600 py-2 px-3 text-sm font-bold text-white opacity-70 duration-150 hover:bg-red-700 focus:outline-none"
                 >
-                  Begin <ArrowRightIcon className="ml-1 inline h-5 w-5" />
+                  BEGIN <ArrowRightIcon className="ml-1 inline h-5 w-5" />
                 </button>
               )}
             </form>
