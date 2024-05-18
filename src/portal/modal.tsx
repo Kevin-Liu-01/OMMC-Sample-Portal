@@ -49,6 +49,10 @@ const Modal: React.FC<Props> = ({
     }, 2000);
   };
 
+  type Member = {
+    name: string;
+  };
+
   return (
     <>
       {showModal ? (
@@ -79,12 +83,12 @@ const Modal: React.FC<Props> = ({
                     <div className="mt-2 flex flex-row gap-2">
                       {
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-                        JSON.parse(teamMember!).map((member: string) => (
+                        JSON.parse(teamMember!).map((member: Member) => (
                           <p
                             className="rounded-lg bg-gray-200 px-2 py-1 text-sm dark:bg-gray-800"
-                            key={member}
+                            key={member.name}
                           >
-                            {member}
+                            {member.name}
                           </p>
                         ))
                       }
