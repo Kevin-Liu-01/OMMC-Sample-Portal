@@ -179,40 +179,44 @@ const Test = () => {
           <h1 className="mb-6 text-xl font-bold md:text-2xl lg:mb-8 lg:text-3xl xl:text-4xl 2xl:text-[2.8rem]">
             Welcome to the{" "}
             <span className="rounded-xl bg-red-600 px-2 py-0.5 text-white xl:rounded-2xl xl:px-3">
-              OMMC Year 4
+              OMMC Sample
             </span>{" "}
-            Sample!
+            Test!
           </h1>
+          <h2 className="mb-6 flex items-center rounded-lg border border-dashed border-red-400 bg-red-200/50 p-2 font-bold uppercase italic text-red-600 dark:bg-red-400/20 ">
+            <SpeakerphoneIcon className="mr-2 h-6 w-6" />
+            DISCLAIMER: This is not the OMMC Year 4 Test. This is a mock test
+            with sample problems.
+          </h2>
           <div className="mb-6 max-w-4xl rounded-xl text-xs lg:text-sm xl:text-base ">
-            <h2 className="mb-6 flex items-center rounded-lg border border-gray-400 bg-gray-100 p-2 font-bold uppercase italic text-red-600 dark:border-gray-600 dark:bg-gray-700">
-              <SpeakerphoneIcon className="mr-2 h-6 w-6" />
-              DISCLAIMER: This is not the OMMC Year 4 Test. This is a mock test
-              with sample problems.
-            </h2>
-            <h2 className="mb-4 flex flex-row items-center text-xl font-bold">
-              <InformationCircleIcon className="mr-2 h-6 w-6" /> A Few Things to
-              Keep in Mind:
-            </h2>
-            <ul className="mb-4 list-inside list-disc">
-              <li>Please ensure that you have a stable internet connection.</li>
-              <li>
-                The test is not timed, so do not worry about having enough time
-                to complete it.
-              </li>
-              <li>
-                Discussion on forums such as AoPS or the discord server is
-                strictly prohibited.
-              </li>
-              <li>
-                You may only collaborate with other members of your team. The
-                maximum team size is 4.
-              </li>
-              <li>
-                If you experience any technical issues, please contact the
-                competition organizers immediately.
-              </li>
-            </ul>
-            <form onSubmit={handleSubmit}>
+            <div className="mb-4 rounded-lg border border-gray-400 bg-gray-100 p-3 dark:border-gray-600 dark:bg-gray-700">
+              <h2 className="mb-1 flex flex-row items-center text-xl font-bold">
+                <InformationCircleIcon className="mr-2 h-6 w-6" /> A Few Things
+                to Keep in Mind:
+              </h2>
+              <ul className="list-inside list-disc pl-2">
+                <li>
+                  Please ensure that you have a stable internet connection.
+                </li>
+                <li>
+                  The test is not timed, so do not worry about having enough
+                  time to complete it.
+                </li>
+                <li>
+                  Discussion on forums such as AoPS or the discord server is
+                  strictly prohibited.
+                </li>
+                <li>
+                  You may only collaborate with other members of your team. The
+                  maximum team size is 4.
+                </li>
+                <li>
+                  If you experience any technical issues, please contact the
+                  competition organizers immediately.
+                </li>
+              </ul>
+            </div>
+            <form onSubmit={handleSubmit} className="pb-4">
               <div className="mb-4">
                 <label
                   className="mb-2 block font-semibold text-gray-700 dark:text-white lg:text-lg"
@@ -258,9 +262,21 @@ const Test = () => {
                       key={index}
                       className="flex items-center justify-between"
                     >
-                      <span className="flex flex-row items-center">
-                        <UserIcon className="mr-2 h-5 w-5" /> Member {index + 1}
-                        : {member}
+                      <span className="flex flex-row items-center gap-2">
+                        <UserIcon className="mr-2 h-5 w-5" />{" "}
+                        <span className="font-semibold">
+                          Member {index + 1}:
+                        </span>
+                        {member.name}{" "}
+                        <span className="rounded-lg bg-green-200 px-2 py-1 text-xs text-green-700 xl:text-sm">
+                          Age {member.age}
+                        </span>
+                        <span className="rounded-lg bg-yellow-200 px-2 py-1 text-xs text-yellow-700 xl:text-sm">
+                          Grade {member.grade}
+                        </span>
+                        <span className="rounded-lg bg-blue-200 px-2 py-1 text-xs text-blue-700 xl:text-sm">
+                          {member.school}
+                        </span>
                       </span>
                       <button
                         type="button"

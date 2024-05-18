@@ -34,7 +34,7 @@ const Navbar = () => {
           onClick={() => setTheme("light")}
         >
           {/* <div className="rings-halo absolute z-50 h-full w-full bg-contain bg-center bg-no-repeat opacity-70"></div> */}
-          <MoonIcon className="h-8 w-8" />
+          <MoonIcon className="h-6 w-6" />
         </button>
       );
     } else {
@@ -45,7 +45,7 @@ const Navbar = () => {
           onClick={() => setTheme("dark")}
         >
           {/* <div className="rings-halo absolute z-50 h-full w-full bg-contain bg-center bg-no-repeat opacity-70"></div> */}
-          <SunIcon className="h-8 w-8" />
+          <SunIcon className="h-6 w-6" />
         </button>
       );
     }
@@ -105,17 +105,17 @@ const Navbar = () => {
           </div>
 
           <button
-            className=" h-full border-l-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
+            className=" m-2 mr-0 rounded-lg border-[1.5px] border-gray-600 px-2 font-semibold no-underline duration-75 hover:bg-gray-300 dark:hover:bg-white/10"
             onClick={session ? () => void signOutFunc() : () => void signIn()}
           >
             {session ? (
-              <LogoutIcon className="h-8 w-8" />
+              <LogoutIcon className="h-6 w-6" />
             ) : (
-              <LoginIcon className="h-8 w-8" />
+              <LoginIcon className="h-6 w-6" />
             )}
           </button>
 
-          <div className="relative flex h-full items-center justify-center border-l-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
+          <div className="relative m-2 flex items-center justify-center rounded-lg border-[1.5px] border-gray-600 px-2 duration-75 hover:bg-gray-300 dark:hover:bg-white/10">
             {renderThemeChanger()}
           </div>
         </div>
