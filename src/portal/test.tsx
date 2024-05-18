@@ -218,7 +218,7 @@ const Test = () => {
             </span>{" "}
             Test!
           </h1>
-          <h2 className="mb-6 flex items-center rounded-lg border border-dashed border-red-400 bg-red-200/50 p-2 font-bold uppercase italic text-red-600 dark:bg-red-400/20 ">
+          <h2 className="mb-6 flex max-w-4xl items-center rounded-lg border border-dashed border-red-400 bg-red-200/50 p-2 font-bold uppercase italic text-red-600 dark:bg-red-400/20 ">
             <SpeakerphoneIcon className="mr-2 h-6 w-6" />
             DISCLAIMER: This is not the OMMC Year 4 Test. This is a mock test
             with sample problems.

@@ -123,13 +123,32 @@ const SubmissionsTable = () => {
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
                         {JSON.parse(user[1][0]?.teamMembers).map((members) => (
-                          <div key={members}>
-                            <p
-                              className="my-1 rounded-xl bg-gray-300 px-2 py-1 dark:bg-gray-500"
-                              key={members}
-                            >
-                              {members}
-                            </p>
+                          <div key={members.name}>
+                            <div className="my-1 rounded-xl bg-gray-300 px-2 py-1 dark:bg-gray-500">
+                              <p>
+                                <span className="font-semibold">Name:</span>{" "}
+                                {members.name}
+                              </p>
+                              <p>
+                                {" "}
+                                <span className="font-semibold">Age:</span>{" "}
+                                {members.age}
+                              </p>
+                              <p>
+                                {" "}
+                                <span className="font-semibold">
+                                  Grade:
+                                </span>{" "}
+                                {members.grade}
+                              </p>
+                              <p>
+                                {" "}
+                                <span className="font-semibold">
+                                  School:
+                                </span>{" "}
+                                {members.school}
+                              </p>
+                            </div>
                           </div>
                         ))}
                       </td>
