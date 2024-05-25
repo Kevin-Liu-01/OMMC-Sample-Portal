@@ -8,31 +8,36 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Navbar from "./components/navbar";
 import Image from "next/image";
-import { ArrowSmRightIcon, EyeOffIcon } from "@heroicons/react/solid";
+import {
+  ArrowSmRightIcon,
+  EyeOffIcon,
+  ChartSquareBarIcon,
+} from "@heroicons/react/solid";
 import Link from "next/link";
 import Head from "next/head";
 
-// type SubmissionData = {
-//   teamMember: string;
-//   teamName: string;
-//   started: string;
-//   q1: string;
-//   q2: string;
-//   q3: string;
-//   username: string;
-//   email: string;
-//   image: string;
-// };
+interface Team {
+  teamName: string;
+  teamMembers: string; // This will be parsed into an array of TeamMember
+  email: string;
+  q1: string;
+  image: string;
+  q2: string;
+  q3: string;
+  username: string;
+}
+
+type TeamsData = Record<string, Team[]>;
 
 const SubmissionsTable = () => {
   const { data: session } = useSession();
 
-  const [submissions, setSubmissions] = useState({});
+  const [submissions, setSubmissions] = useState<TeamsData>({});
 
   useEffect(() => {
     const fetchSubmissions = async () => {
       const res = await fetch("/api/submissions");
-      const data = await res.json();
+      const data: TeamsData = await res.json();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       setSubmissions(data);
     };
@@ -56,6 +61,29 @@ const SubmissionsTable = () => {
 
     return `Total correct: ${totalCorrect}`;
   };
+  // Get the number of teams
+  const numTeams = Object.keys(submissions).length;
+
+  // Calculate the total number of team members
+  const totalTeamMembers = Object.values(submissions).reduce((total, teams) => {
+    return (
+      total +
+      teams.reduce((teamTotal, team) => {
+        const members: TeamMember[] = JSON.parse(team.teamMembers);
+        return teamTotal + members.length;
+      }, 0)
+    );
+  }, 0);
+
+  const getAllEmails = (submissions: TeamsData): string => {
+    const emails: string[] = [];
+    Object.values(submissions).forEach((teams) => {
+      teams.forEach((team) => {
+        emails.push(team.email);
+      });
+    });
+    return emails.join(", ");
+  };
 
   return (
     <>
@@ -66,11 +94,31 @@ const SubmissionsTable = () => {
           <Head>
             <title>User Submissions</title>
           </Head>
-          <main className="min-h-[100vh] overflow-hidden bg-gray-400 font-general duration-150 dark:bg-gray-900">
+          <main className="min-h-[100vh] overflow-hidden bg-gray-400 font-satoshi duration-150 dark:bg-gray-900">
             <Navbar />
             <div className="z-2 pattern-cross absolute h-[calc(100vh-3.7rem)] w-full duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-700 dark:pattern-bg-gray-900"></div>
 
-            <div className="scrollbar relative z-10 h-[calc(100vh-3.7rem)] overflow-scroll  p-4">
+            <div className="scrollbar relative z-10 h-[calc(100vh-3.7rem)] overflow-scroll p-4">
+              <div className="mb-4 grid w-full border-collapse grid-cols-2 overflow-hidden rounded-2xl bg-gray-200 p-4 dark:divide-gray-800 dark:bg-gray-700">
+                <div>
+                  <h1 className="flex items-center gap-1 text-lg font-semibold">
+                    <ChartSquareBarIcon className="h-8 w-8" /> TEST STATISTICS
+                  </h1>
+                  <div className="mt-2 flex gap-2">
+                    <div className="my-1 rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
+                      Total Number of Teams: {numTeams}
+                    </div>
+                    <div className="my-1 rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
+                      Total Number of Team Members: {totalTeamMembers}
+                    </div>
+                  </div>
+                </div>
+                <div className="overflow-hidden rounded-md bg-gray-300 shadow-inner dark:bg-gray-800">
+                  <p className="scrollbar h-20 overflow-y-scroll p-3 text-sm">
+                    {getAllEmails(submissions)}
+                  </p>
+                </div>
+              </div>
               <table className="w-full border-collapse divide-y divide-gray-200 overflow-hidden rounded-2xl border border-gray-300 dark:divide-gray-800 dark:border-gray-600">
                 <thead className="bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
                   <tr>
