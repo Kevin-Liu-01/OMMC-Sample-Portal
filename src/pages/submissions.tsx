@@ -33,6 +33,7 @@ const SubmissionsTable = () => {
   const { data: session } = useSession();
 
   const [submissions, setSubmissions] = useState<TeamsData>({});
+  const [emails, setEmails] = useState<string>("");
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -42,47 +43,55 @@ const SubmissionsTable = () => {
       setSubmissions(data);
     };
     void fetchSubmissions();
+
+    const fetchEmails = async () => {
+      const res = await fetch("/api/emails");
+      const data = await res.json();
+      setEmails(data.Test_Emails);
+    };
+    void fetchEmails();
   }, []);
 
   const totalCorrect = (q1, q2, q3) => {
     let totalCorrect = 0;
 
-    if (q1 === '"23"') {
+    if (q1 === '"31"') {
       totalCorrect = totalCorrect + 1;
     }
 
-    if (q2 === '"27"') {
+    if (q2 === '"14"') {
       totalCorrect = totalCorrect + 1;
     }
 
-    if (q3 === '"29"') {
+    if (q3 === '"1/2"') {
       totalCorrect = totalCorrect + 1;
     }
 
     return `Total correct: ${totalCorrect}`;
   };
   // Get the number of teams
-  const numTeams = Object.keys(submissions).length;
+  const getTeams = Object.keys(submissions).length;
 
   // Calculate the total number of team members
-  const totalTeamMembers = Object.values(submissions).reduce((total, teams) => {
-    return (
-      total +
-      teams.reduce((teamTotal, team) => {
-        const members: TeamMember[] = JSON.parse(team.teamMembers);
-        return teamTotal + members.length;
-      }, 0)
-    );
-  }, 0);
+  const getTotalTeamMembers = Object.values(submissions).reduce(
+    (total, teams) => {
+      return (
+        total +
+        teams.reduce((teamTotal, team) => {
+          const members: TeamMember[] = JSON.parse(team.teamMembers);
+          return teamTotal + members.length;
+        }, 0)
+      );
+    },
+    0
+  );
 
-  const getAllEmails = (submissions: TeamsData): string => {
-    const emails: string[] = [];
-    Object.values(submissions).forEach((teams) => {
-      teams.forEach((team) => {
-        emails.push(team.email);
-      });
-    });
-    return emails.join(", ");
+  const getNumberOfUserAccounts = (emails: string): number => {
+    return emails.split(/\s+/).length;
+  };
+
+  const getAllEmails = (emails: string): string => {
+    return emails.replace(/\s+/g, ", ");
   };
 
   return (
@@ -99,23 +108,26 @@ const SubmissionsTable = () => {
             <div className="z-2 pattern-cross absolute h-[calc(100vh-3.7rem)] w-full duration-150 pattern-bg-gray-300 pattern-gray-500 pattern-opacity-20 pattern-size-8 dark:pattern-gray-700 dark:pattern-bg-gray-900"></div>
 
             <div className="scrollbar relative z-10 h-[calc(100vh-3.7rem)] overflow-scroll p-4">
-              <div className="mb-4 grid w-full border-collapse grid-cols-2 overflow-hidden rounded-2xl bg-gray-200 p-4 dark:divide-gray-800 dark:bg-gray-700">
+              <div className="mb-4 grid w-full border-collapse gap-2 overflow-hidden rounded-2xl bg-gray-200 p-4 dark:divide-gray-800 dark:bg-gray-700 md:grid-cols-2 md:gap-4">
                 <div>
                   <h1 className="flex items-center gap-1 text-lg font-semibold">
                     <ChartSquareBarIcon className="h-8 w-8" /> TEST STATISTICS
                   </h1>
                   <div className="mt-2 flex gap-2">
-                    <div className="my-1 rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
-                      Total Number of Teams: {numTeams}
+                    <div className="rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
+                      Total User Accounts: {getNumberOfUserAccounts(emails)}
                     </div>
-                    <div className="my-1 rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
-                      Total Number of Team Members: {totalTeamMembers}
+                    <div className="rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
+                      Total Number of Teams: {getTeams}
+                    </div>
+                    <div className="rounded-md bg-gray-300 px-2 py-1 dark:bg-gray-800">
+                      Total Number of Team Members: {getTotalTeamMembers}
                     </div>
                   </div>
                 </div>
                 <div className="overflow-hidden rounded-md bg-gray-300 shadow-inner dark:bg-gray-800">
                   <p className="scrollbar h-20 overflow-y-scroll p-3 text-sm">
-                    {getAllEmails(submissions)}
+                    {getAllEmails(emails)}
                   </p>
                 </div>
               </div>
@@ -212,6 +224,7 @@ const SubmissionsTable = () => {
                           user[1][0].q2,
                           user[1][0].q3
                         )}
+                        /3
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 text-sm text-gray-800 dark:text-gray-100">
                         {user[1][0].q1.replace('"', "").replace('"', "")}
