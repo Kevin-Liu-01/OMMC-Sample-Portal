@@ -23,7 +23,6 @@ const Navbar = () => {
   const renderThemeChanger = () => {
     if (!mounted) return null;
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const currentTheme = theme === "system" ? systemTheme : theme;
 
     if (currentTheme === "dark") {

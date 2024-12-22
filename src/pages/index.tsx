@@ -1,7 +1,6 @@
 import { type NextPage } from "next";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
-// import { api } from "~/utils/api";
 import Navbar from "./components/navbar";
 import TestPortal from "../portal/portal";
 import { CursorClickIcon } from "@heroicons/react/solid";

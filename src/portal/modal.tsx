@@ -107,7 +107,6 @@ const Modal: React.FC<Props> = ({
                   <button
                     className="mr-1 mb-1 flex flex-row items-center rounded-xl bg-emerald-500 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:bg-emerald-600 hover:shadow-lg focus:outline-none active:bg-emerald-600"
                     type="submit"
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     onClick={() => submissionHandler()}
                   >
                     <UploadIcon className="mr-2 h-5 w-5 " /> Submit

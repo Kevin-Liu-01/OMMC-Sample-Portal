@@ -1,11 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import { useState, useEffect } from "react";
 import {
   ArrowRightIcon,
@@ -25,55 +17,73 @@ import {
   UsersIcon,
 } from "@heroicons/react/solid";
 import { useSession } from "next-auth/react";
-import Question from "./question";
-import Modal from "./modal";
 import Confetti from "react-confetti";
 
+import useLocalStorage from "../utils/useLocalStorage";
+import Question from "./question";
+import Modal from "./modal";
+
 // import { env } from "../../env.mjs";
+
+// Define types for member data
+interface TeamMember {
+  name: string;
+  age: string;
+  grade: string;
+  school: string;
+}
+
+// Define types for submission data (use the correct structure from your API)
+interface Submission {
+  email: string;
+  teamName: string;
+  teamMembers: string;
+  q1: string;
+  q2: string;
+  q3: string;
+  started: string;
+}
 
 const Test = () => {
   const { data: session } = useSession();
   const [started, setStarted] = useLocalStorage("STARTED", false);
   const [teamName, setTeamName] = useLocalStorage("TEAM_NAME", "");
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const [teamMembers, setTeamMembers] = useLocalStorage<string[]>(
+  const [teamMembers, setTeamMembers] = useLocalStorage<TeamMember[]>(
     "TEAM_MEMBER",
     []
   );
-  const [newMember, setNewMember] = useState("");
-  const [age, setAge] = useState("");
-  const [grade, setGrade] = useState("");
-  const [school, setSchool] = useState("");
-  const [layout, setLayout] = useState(false);
+  const [newMember, setNewMember] = useState<string>("");
+  const [age, setAge] = useState<string>("");
+  const [grade, setGrade] = useState<string>("");
+  const [school, setSchool] = useState<string>("");
+  const [layout, setLayout] = useState<boolean>(false);
 
   const [q1, setQ1] = useLocalStorage("Q1", "");
   const [q2, setQ2] = useLocalStorage("Q2", "");
   const [q3, setQ3] = useLocalStorage("Q3", "");
-  const [showModal, setShowModal] = useState(false);
-  const [confetti, showConfetti] = useState(false);
-  const [current, setCurrent] = useState([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [confetti, showConfetti] = useState<boolean>(false);
+  const [current, setCurrent] = useState<Submission[]>([]);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
       const res = await fetch("/api/submissions");
-      const data = await res.json();
+      const data: Submission[] = await res.json();
       setCurrent(data);
     };
     void fetchSubmissions();
   }, []);
 
   useEffect(() => {
-    if (current) {
-      Object.entries(current).forEach(([, submissions]) => {
-        if (submissions[0].email === session?.user?.email) {
-          setTeamMembers(JSON.parse(submissions[0].teamMembers));
-          setStarted(submissions[0].started === "true");
-          setTeamName(
-            submissions[0].teamName.replace('"', "").replace('"', "")
-          );
-          setQ1(submissions[0].q1.replace('"', "").replace('"', ""));
-          setQ2(submissions[0].q2.replace('"', "").replace('"', ""));
-          setQ3(submissions[0].q3.replace('"', "").replace('"', ""));
+    if (current.length > 0) {
+      current.forEach((submission) => {
+        if (submission.email === session?.user?.email) {
+          setTeamMembers(JSON.parse(submission.teamMembers));
+          setStarted(submission.started === "true");
+          setTeamName(submission.teamName.replace('"', "").replace('"', ""));
+          setQ1(submission.q1.replace('"', "").replace('"', ""));
+          setQ2(submission.q2.replace('"', "").replace('"', ""));
+          setQ3(submission.q3.replace('"', "").replace('"', ""));
         }
       });
     }
@@ -107,7 +117,7 @@ const Test = () => {
     ) {
       setTeamMembers([
         ...teamMembers,
-        { name: newMember.trim(), age: age, grade: grade, school: school },
+        { name: newMember.trim(), age, grade, school },
       ]);
       setNewMember("");
       setAge("");
@@ -124,7 +134,6 @@ const Test = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     setStarted(true);
   };
 
@@ -346,12 +355,14 @@ const Test = () => {
                         max={18}
                         min={0}
                         onKeyPress={(event) => {
-                          if (event.target.value.length >= 2) {
+                          const input = event.target as HTMLInputElement; // Cast to HTMLInputElement
+                          if (input.value.length >= 2) {
                             event.preventDefault();
                           }
                         }}
                         required={teamMembers.length < 1}
                       />
+
                       <input
                         className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
                         type="number"
@@ -361,15 +372,17 @@ const Test = () => {
                         max={12}
                         min={0}
                         onKeyPress={(event) => {
+                          const input = event.target as HTMLInputElement; // Cast to HTMLInputElement
                           if (
-                            event.target.value.length >= 2 ||
-                            event.target.value > 12
+                            input.value.length >= 2 ||
+                            parseInt(input.value) > 12
                           ) {
                             event.preventDefault();
                           }
                         }}
                         required={teamMembers.length < 1}
                       />
+
                       <input
                         className="focus:shadow-outline w-full appearance-none rounded-lg border border-gray-400 bg-gray-200 py-2 px-3 leading-tight text-gray-800 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300"
                         type="text"
@@ -418,43 +431,3 @@ const Test = () => {
 };
 
 export default Test;
-// Hook
-function useLocalStorage<T>(key: string, initialValue: T) {
-  // State to store our value
-  // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    if (typeof window === "undefined") {
-      return initialValue;
-    }
-    try {
-      // Get from local storage by key
-      const item = window.localStorage.getItem(key);
-      // Parse stored json or if none return initialValue
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      // If error also return initialValue
-      console.log(error);
-      return initialValue;
-    }
-  });
-  // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
-  const setValue = (value: T | ((val: T) => T)) => {
-    try {
-      // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      // Save state
-      setStoredValue(valueToStore);
-      // Save to local storage
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      }
-    } catch (error) {
-      // A more advanced implementation would handle the error case
-      console.log(error);
-    }
-  };
-  return [storedValue, setValue] as const;
-}

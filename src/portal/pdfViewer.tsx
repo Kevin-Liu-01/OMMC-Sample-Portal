@@ -4,7 +4,6 @@ import {
   ArrowRightIcon,
   DocumentDownloadIcon,
 } from "@heroicons/react/solid";
-// import { env } from "../../env.mjs";
 import { Document, Page, pdfjs } from "react-pdf";
 import Link from "next/link";
 
@@ -48,7 +47,6 @@ const PDFViewer = () => {
       <nav className="absolute top-6 z-20 mx-auto flex select-none flex-row items-center gap-2 rounded-2xl border border-gray-400 bg-gray-300 bg-opacity-90 p-2 shadow-lg duration-150 dark:border-gray-800 dark:bg-gray-700 dark:hover:bg-opacity-70 md:top-auto md:bottom-4">
         <button
           className={`${
-            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             buttonEffect && "animate-wiggle"
           } flex items-center rounded-lg bg-gray-100 px-2 py-1 text-sm duration-150 hover:scale-105 dark:bg-gray-800 lg:text-base`}
           onClick={() => {
