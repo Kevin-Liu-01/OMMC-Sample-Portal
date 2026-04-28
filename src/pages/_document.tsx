@@ -10,7 +10,37 @@ export default function Document() {
           name="description"
           content="Official Sample Test Portal for the OMMC Competition. Any student 18 or younger anywhere in the world can sign up!"
         />
-        <meta content="/favicon.ico" property="og:image" />
+
+        {/* Open Graph */}
+        <meta property="og:title" content="OMMC Sample Test Portal" />
+        <meta
+          property="og:description"
+          content="Official Sample Test Portal for the OMMC Competition. Any student 18 or younger anywhere in the world can sign up!"
+        />
+        <meta property="og:url" content="https://ommc-sample-portal.vercel.app" />
+        <meta property="og:image" content="https://cdn.discordapp.com/attachments/1044744976942243880/1045383726756003880/OMMC-Logo_1.png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="OMMC — Online Monmouth Math Competition" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="OMMC" />
+        <meta property="og:locale" content="en_US" />
+
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@ommcofficial" />
+        <meta name="twitter:creator" content="@kevskgs" />
+        <meta name="twitter:title" content="OMMC Sample Test Portal" />
+        <meta
+          name="twitter:description"
+          content="Official Sample Test Portal for the OMMC Competition. Any student 18 or younger anywhere in the world can sign up!"
+        />
+        <meta name="twitter:image" content="https://cdn.discordapp.com/attachments/1044744976942243880/1045383726756003880/OMMC-Logo_1.png" />
+        <meta name="twitter:image:alt" content="OMMC — Online Monmouth Math Competition" />
+
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <link rel="canonical" href="https://ommc-sample-portal.vercel.app" />
+
         <meta
           name="google-site-verification"
           content="mvNROFtoLu1hm048arKrTbsx_md-cJS2mZL8L2sQjQ4"
